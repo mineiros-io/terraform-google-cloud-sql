@@ -76,15 +76,15 @@ variable "availability_type" {
 }
 
 variable "disk_autoresize" {
-  description = "(Optional) Configuration to increase storage size automatically."
+  description = "(Optional) Configuration to increase storage size automatically. Default is `true` if no `var.disk_size` is set and `false` otherwise."
   type        = bool
   default     = true
 }
 
 variable "disk_size" {
-  description = "(Optional) The size of data disk, in GB. Size of a running instance cannot be reduced but can be increased."
+  description = "(Optional) The size of data disk, in GB. Size of a running instance cannot be reduced but can be increased. If `disk_size` is set `var.disk_autoresize` will be disbaled as terraform can not handle both."
   type        = number
-  default     = 10
+  default     = null
 }
 
 variable "disk_type" {
