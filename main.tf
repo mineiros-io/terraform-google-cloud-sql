@@ -23,12 +23,14 @@ resource "google_sql_database_instance" "instance" {
     tier              = var.tier
     activation_policy = var.activation_policy
     availability_type = var.availability_type
-    disk_autoresize   = var.disk_autoresize
-    disk_size         = var.disk_size
-    disk_type         = var.disk_type
-    pricing_plan      = var.pricing_plan
-    replication_type  = var.replication_type
-    user_labels       = var.user_labels
+
+    # disable disk_autoresize if the user requested a specific disk_size
+    disk_autoresize  = var.disk_size != null ? false : var.disk_autoresize
+    disk_size        = var.disk_size
+    disk_type        = var.disk_type
+    pricing_plan     = var.pricing_plan
+    replication_type = var.replication_type
+    user_labels      = var.user_labels
 
     dynamic "database_flags" {
       for_each = var.database_flags
