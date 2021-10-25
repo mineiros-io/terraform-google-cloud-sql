@@ -145,11 +145,12 @@ locals {
 resource "google_sql_database" "database" {
   for_each = var.module_enabled ? local.sql_databases : {}
 
+  project = var.project
+
   instance  = google_sql_database_instance.instance[0].name
   name      = each.value.name
   charset   = try(each.value.charset, null)
   collation = try(each.value.collation, null)
-  project   = try(each.value.project, null)
 
   timeouts {
     create = try(var.module_timeouts.google_sql_database.create, "15m")
@@ -165,9 +166,10 @@ locals {
 resource "google_sql_ssl_cert" "client_cert" {
   for_each = var.module_enabled ? local.sql_ssl_certs : {}
 
+  project = var.project
+
   instance    = google_sql_database_instance.instance[0].name
   common_name = each.value.common_name
-  project     = try(each.value.project, null)
 
   timeouts {
     create = try(var.module_timeouts.google_sql_ssl_cert.create, "10m")
@@ -182,13 +184,14 @@ locals {
 resource "google_sql_user" "users" {
   for_each = var.module_enabled ? local.sql_users : {}
 
+  project = var.project
+
   instance        = google_sql_database_instance.instance[0].name
   name            = each.value.name
   password        = try(each.value.password, null)
   type            = try(each.value.type, null)
   deletion_policy = try(each.value.deletion_policy, null)
   host            = try(each.value.host, null)
-  project         = try(each.value.project, null)
 
   timeouts {
     create = try(var.module_timeouts.google_sql_user.create, "10m")
