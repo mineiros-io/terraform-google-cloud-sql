@@ -7,7 +7,7 @@ on:
   pull_request:
 
 concurrency:
-  group: main
+  group: terraform-google-cloud-sql
   cancel-in-progress: false
 
 jobs:
