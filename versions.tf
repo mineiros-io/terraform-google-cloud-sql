@@ -3,6 +3,9 @@ terraform {
 
   required_providers {
     # v3.82: sql: fixed bug in google_sql_user with CLOUD_IAM_USERs on POSTGRES
-    google = "~> 3.82"
+    google = {
+      source  = "hashicorp/google"
+      version = ">= 3.82, < 5.0"
+    }
   }
 }
