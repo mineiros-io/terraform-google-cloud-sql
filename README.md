@@ -141,10 +141,6 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   Pricing plan for this instance, can only be `PER_USE`.
 
-- **`replication_type`**: _(Optional `string`)_
-
-  This property is only applicable to First Generation instances. Replication type for this instance, can be one of `ASYNCHRONOUS` or `SYNCHRONOUS`.
-
 - **`user_labels`**: _(Optional `map(string)`)_
 
   A set of key/value user label pairs to assign to the instance.
@@ -182,7 +178,7 @@ See [variables.tf] and [examples/] for details and use-cases.
     start_time = "17:00"
   }
   ```
-  
+
   A `backup_configuration` object accepts the following fields:
 
   - **`binary_log_enabled`**: _(Optional `bool`)_
@@ -192,7 +188,7 @@ See [variables.tf] and [examples/] for details and use-cases.
   - **`enabled`**: _(Optional `bool`)_
 
     True if backup configuration is enabled.
-  
+
   - **`start_time`**: _(Optional `string`)_
 
     `HH:MM` format time indicating when backup configuration starts.
@@ -230,7 +226,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     - **`retention_unit`**: _(Optional `string`)_
 
-      The unit that `retained_backups` represents. 
+      The unit that `retained_backups` represents.
 
       Defaults to `COUNT`.
 
@@ -281,7 +277,7 @@ See [variables.tf] and [examples/] for details and use-cases.
     - **`name`**: _(Optional `string`)_
 
       A name for this whitelist entry.
-    
+
     - **`value`**: **_(Required `string`)_**
 
       A CIDR notation IPv4 or IPv6 address that is allowed to access this instance. Must be set even if other two attributes are not for the whitelist to become active.
@@ -390,8 +386,8 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   - **`connect_retry_interval`**: _(Optional `number`)_
 
-    The number of seconds between connect retries. 
-    
+    The number of seconds between connect retries.
+
     Default is `60`.
 
   - **`dump_file_path`**: _(Optional `string`)_
@@ -442,76 +438,76 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   - **`google_sql_database_instance`**: _(Optional `map(string)`)_
 
-    - **`create`**: _(Optional)_ 
-      
-      Used for sql database instance creation. 
-      
+    - **`create`**: _(Optional)_
+
+      Used for sql database instance creation.
+
       Default is `"30m"`.
 
-    - **`update`**: _(Optional)_ 
-      
-      Used for sql database instance manipulation. 
-      
+    - **`update`**: _(Optional)_
+
+      Used for sql database instance manipulation.
+
       Default is `"30m"`.
 
-    - **`delete`**: _(Optional)_ 
-      
-      Used for sql database instance deletion.  
-      
+    - **`delete`**: _(Optional)_
+
+      Used for sql database instance deletion.
+
       Default is `"30m"`.
 
   - **`google_sql_database`**: _(Optional `map(string)`)_
 
-    - **`create`**: _(Optional)_ 
-      
-      Used for sql database creation. 
-      
+    - **`create`**: _(Optional)_
+
+      Used for sql database creation.
+
       Default is `"15m"`.
 
-    - **`update`**: _(Optional)_ 
-      
-      Used for sql database manipulation. 
-      
+    - **`update`**: _(Optional)_
+
+      Used for sql database manipulation.
+
       Default is `"10m"`.
 
-    - **`delete`**: _(Optional)_ 
-      
-      Used for sql database deletion.  
-      
+    - **`delete`**: _(Optional)_
+
+      Used for sql database deletion.
+
       Default is `"10m"`.
 
   - **`google_sql_ssl_cert`**: _(Optional `map(string)`)_
 
-    - **`create`**: _(Optional)_ 
-      
-      Used for sql user creation. 
-      
+    - **`create`**: _(Optional)_
+
+      Used for sql user creation.
+
       Default is `"10m"`.
 
-    - **`delete`**: _(Optional)_ 
-      
-      Used for sql user deletion.  
-      
+    - **`delete`**: _(Optional)_
+
+      Used for sql user deletion.
+
       Default is `"10m"`.
 
   - **`google_sql_user`**: _(Optional `map(string)`)_
 
-    - **`create`**: _(Optional)_ 
-      
-      Used for sql user creation. 
-      
+    - **`create`**: _(Optional)_
+
+      Used for sql user creation.
+
       Default is `"10m"`.
 
-    - **`update`**: _(Optional)_ 
-      
-      Used for sql user manipulation. 
-      
+    - **`update`**: _(Optional)_
+
+      Used for sql user manipulation.
+
       Default is `"10m"`.
 
-    - **`delete`**: _(Optional)_ 
-      
-      Used for sql user deletion.  
-      
+    - **`delete`**: _(Optional)_
+
+      Used for sql user deletion.
+
       Default is `"10m"`.
 
 #### Extended Resource Configuration
@@ -594,7 +590,7 @@ See [variables.tf] and [examples/] for details and use-cases.
   - **`type`**: _(Optional `string`)_
 
     The user type. It determines the method to authenticate the user during login. The default is the database's built-in user type. Flags include `BUILT_IN`, `CLOUD_IAM_USER`, or `CLOUD_IAM_SERVICE_ACCOUNT`.
-  
+
   - **`deletion_policy`**: _(Optional `string`)_
 
     The deletion policy for the user. Setting `ABANDON` allows the resource to be abandoned rather than deleted. This is useful for Postgres, where users cannot be deleted from the API if they have been granted SQL roles. Possible values are: `ABANDON`.
