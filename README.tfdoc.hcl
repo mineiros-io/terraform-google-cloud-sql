@@ -19,7 +19,7 @@ header {
     url   = "https://github.com/hashicorp/terraform/releases"
     text  = "Terraform Version"
   }
-  
+
   badge "tf-gcp-provider" {
     image = "https://img.shields.io/badge/google-4-1A73E8.svg?logo=terraform"
     url   = "https://github.com/terraform-providers/terraform-provider-google/releases"
@@ -624,21 +624,21 @@ section {
             default     = "30m"
             description = <<-END
               - **`create`**: _(Optional)_ 
-      
+
                 Used for sql database instance creation. 
-                
+
                 Default is `"30m"`.
 
               - **`update`**: _(Optional)_ 
-                
+
                 Used for sql database instance manipulation. 
-                
+
                 Default is `"30m"`.
 
               - **`delete`**: _(Optional)_ 
-                
+
                 Used for sql database instance deletion.  
-                
+
                 Default is `"30m"`.
             END
           }
@@ -648,21 +648,21 @@ section {
             default     = "15m"
             description = <<-END
               - **`create`**: _(Optional)_ 
-      
+
                 Used for sql database creation. 
-                
+
                 Default is `"15m"`.
 
               - **`update`**: _(Optional)_ 
-                
+
                 Used for sql database manipulation. 
-                
+
                 Default is `"10m"`.
 
               - **`delete`**: _(Optional)_ 
-                
+
                 Used for sql database deletion.  
-                
+
                 Default is `"10m"`.
             END
           }
@@ -672,15 +672,15 @@ section {
             default     = "10m"
             description = <<-END
               - **`create`**: _(Optional)_ 
-                
+
                 Used for sql user creation. 
-                
+
                 Default is `"10m"`.
 
               - **`delete`**: _(Optional)_ 
-                
+
                 Used for sql user deletion.  
-                
+
                 Default is `"10m"`.
             END
           }
@@ -690,21 +690,21 @@ section {
             default     = "10m"
             description = <<-END
               - **`create`**: _(Optional)_ 
-      
+
                 Used for sql user creation. 
-                
+
                 Default is `"10m"`.
 
               - **`update`**: _(Optional)_ 
-                
+
                 Used for sql user manipulation. 
-                
+
                 Default is `"10m"`.
 
               - **`delete`**: _(Optional)_ 
-                
+
                 Used for sql user deletion.  
-                
+
                 Default is `"10m"`.
             END
           }
