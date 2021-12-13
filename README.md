@@ -455,21 +455,21 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`google_sql_database_instance`**](#attr-google_sql_database_instance-1): *(Optional `map(string)`)*<a name="attr-google_sql_database_instance-1"></a>
 
     - **`create`**: _(Optional)_ 
-          
+    
       Used for sql database instance creation. 
-                    
+    
       Default is `"30m"`.
     
     - **`update`**: _(Optional)_ 
-                    
+    
       Used for sql database instance manipulation. 
-                    
+    
       Default is `"30m"`.
     
     - **`delete`**: _(Optional)_ 
-                    
+    
       Used for sql database instance deletion.  
-                    
+    
       Default is `"30m"`.
 
     Default is `"30m"`.
@@ -477,21 +477,21 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`google_sql_database`**](#attr-google_sql_database-1): *(Optional `map(string)`)*<a name="attr-google_sql_database-1"></a>
 
     - **`create`**: _(Optional)_ 
-          
+    
       Used for sql database creation. 
-                    
+    
       Default is `"15m"`.
     
     - **`update`**: _(Optional)_ 
-                    
+    
       Used for sql database manipulation. 
-                    
+    
       Default is `"10m"`.
     
     - **`delete`**: _(Optional)_ 
-                    
+    
       Used for sql database deletion.  
-                    
+    
       Default is `"10m"`.
 
     Default is `"15m"`.
@@ -499,15 +499,15 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`google_sql_ssl_cert`**](#attr-google_sql_ssl_cert-1): *(Optional `map(string)`)*<a name="attr-google_sql_ssl_cert-1"></a>
 
     - **`create`**: _(Optional)_ 
-                    
+    
       Used for sql user creation. 
-                    
+    
       Default is `"10m"`.
     
     - **`delete`**: _(Optional)_ 
-                    
+    
       Used for sql user deletion.  
-                    
+    
       Default is `"10m"`.
 
     Default is `"10m"`.
@@ -515,21 +515,21 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`google_sql_user`**](#attr-google_sql_user-1): *(Optional `map(string)`)*<a name="attr-google_sql_user-1"></a>
 
     - **`create`**: _(Optional)_ 
-          
+    
       Used for sql user creation. 
-                    
+    
       Default is `"10m"`.
     
     - **`update`**: _(Optional)_ 
-                    
+    
       Used for sql user manipulation. 
-                    
+    
       Default is `"10m"`.
     
     - **`delete`**: _(Optional)_ 
-                    
+    
       Used for sql user deletion.  
-                    
+    
       Default is `"10m"`.
 
     Default is `"10m"`.
