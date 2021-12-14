@@ -1,7 +1,7 @@
-[<img src="https://raw.githubusercontent.com/mineiros-io/brand/3bffd30e8bdbbde32c143e2650b2faa55f1df3ea/mineiros-primary-logo.svg" width="400"/>](https://mineiros.io/?ref=terraform-module-template)
+[<img src="https://raw.githubusercontent.com/mineiros-io/brand/3bffd30e8bdbbde32c143e2650b2faa55f1df3ea/mineiros-primary-logo.svg" width="400"/>](https://mineiros.io/?ref=terraform-google-cloud-sql)
 
-[![Build Status](https://github.com/mineiros-io/terraform-module-template/workflows/Tests/badge.svg)](https://github.com/mineiros-io/terraform-module-template/actions)
-[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/mineiros-io/terraform-module-template.svg?label=latest&sort=semver)](https://github.com/mineiros-io/terraform-module-template/releases)
+[![Build Status](https://github.com/mineiros-io/terraform-google-cloud-sql/workflows/Tests/badge.svg)](https://github.com/mineiros-io/terraform-google-cloud-sql/actions)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/mineiros-io/terraform-google-cloud-sql.svg?label=latest&sort=semver)](https://github.com/mineiros-io/terraform-google-cloud-sql/releases)
 [![Terraform Version](https://img.shields.io/badge/Terraform-1.x-623CE4.svg?logo=terraform)](https://github.com/hashicorp/terraform/releases)
 [![Google Provider Version](https://img.shields.io/badge/google-4-1A73E8.svg?logo=terraform)](https://github.com/terraform-providers/terraform-provider-google/releases)
 [![Join Slack](https://img.shields.io/badge/slack-@mineiros--community-f32752.svg?logo=slack)](https://mineiros.io/slack)
@@ -157,7 +157,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   List of database flags.
 
-  Each object in the list accepts the following attributes:
+  The object accepts the following attributes:
 
   - [**`name`**](#attr-name-1): *(**Required** `string`)*<a name="attr-name-1"></a>
 
@@ -228,7 +228,7 @@ See [variables.tf] and [examples/] for details and use-cases.
     }]
     ```
 
-    Each object in the list accepts the following attributes:
+    The object accepts the following attributes:
 
     - [**`retained_backups`**](#attr-retained_backups-2): *(Optional `number`)*<a name="attr-retained_backups-2"></a>
 
@@ -278,7 +278,7 @@ See [variables.tf] and [examples/] for details and use-cases.
     }]
     ```
 
-    Each object in the list accepts the following attributes:
+    The object accepts the following attributes:
 
     - [**`expiration_time`**](#attr-expiration_time-2): *(Optional `string`)*<a name="attr-expiration_time-2"></a>
 
@@ -450,7 +450,7 @@ See [variables.tf] and [examples/] for details and use-cases.
   }
   ```
 
-  Each object in the map accepts the following attributes:
+  The object accepts the following attributes:
 
   - [**`google_sql_database_instance`**](#attr-google_sql_database_instance-1): *(Optional `map(string)`)*<a name="attr-google_sql_database_instance-1"></a>
 
@@ -548,7 +548,7 @@ See [variables.tf] and [examples/] for details and use-cases.
   }]
   ```
 
-  Each object in the list accepts the following attributes:
+  The object accepts the following attributes:
 
   - [**`name`**](#attr-name-1): *(**Required** `string`)*<a name="attr-name-1"></a>
 
@@ -578,7 +578,7 @@ See [variables.tf] and [examples/] for details and use-cases.
   }]
   ```
 
-  Each object in the list accepts the following attributes:
+  The object accepts the following attributes:
 
   - [**`common_name`**](#attr-common_name-1): *(**Required** `string`)*<a name="attr-common_name-1"></a>
 
@@ -601,7 +601,7 @@ See [variables.tf] and [examples/] for details and use-cases.
   }]
   ```
 
-  Each object in the list accepts the following attributes:
+  The object accepts the following attributes:
 
   - [**`name`**](#attr-name-1): *(**Required** `string`)*<a name="attr-name-1"></a>
 

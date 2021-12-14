@@ -1,16 +1,16 @@
 header {
   image = "https://raw.githubusercontent.com/mineiros-io/brand/3bffd30e8bdbbde32c143e2650b2faa55f1df3ea/mineiros-primary-logo.svg"
-  url   = "https://mineiros.io/?ref=terraform-module-template"
+  url   = "https://mineiros.io/?ref=terraform-google-cloud-sql"
 
   badge "build" {
-    image = "https://github.com/mineiros-io/terraform-module-template/workflows/Tests/badge.svg"
-    url   = "https://github.com/mineiros-io/terraform-module-template/actions"
+    image = "https://github.com/mineiros-io/terraform-google-cloud-sql/workflows/Tests/badge.svg"
+    url   = "https://github.com/mineiros-io/terraform-google-cloud-sql/actions"
     text  = "Build Status"
   }
 
   badge "semver" {
-    image = "https://img.shields.io/github/v/tag/mineiros-io/terraform-module-template.svg?label=latest&sort=semver"
-    url   = "https://github.com/mineiros-io/terraform-module-template/releases"
+    image = "https://img.shields.io/github/v/tag/mineiros-io/terraform-google-cloud-sql.svg?label=latest&sort=semver"
+    url   = "https://github.com/mineiros-io/terraform-google-cloud-sql/releases"
     text  = "GitHub tag (latest SemVer)"
   }
 
@@ -96,7 +96,7 @@ section {
         }
 
         variable "module_depends_on" {
-          type           = list(any)
+          type           = any
           readme_type    = "list(dependencies)"
           description    = <<-END
             A list of dependencies. Any object can be _assigned_ to this list to define a hidden external dependency.
@@ -224,7 +224,7 @@ section {
         }
 
         variable "database_flags" {
-          type        = list(any)
+          type        = any
           readme_type = "list(database_flags)"
           description = <<-END
             List of database flags.
@@ -309,7 +309,7 @@ section {
           }
 
           attribute "backup_retention_settings" {
-            type           = list(any)
+            type           = any
             readme_type    = "list(backup_retention_settings)"
             description    = <<-END
               A List of backup retention settings.
@@ -372,7 +372,7 @@ section {
           }
 
           attribute "authorized_networks" {
-            type           = list(any)
+            type           = any
             readme_type    = "list(authorized_networks)"
             description    = <<-END
               A List of backup retention settings.
@@ -604,7 +604,7 @@ section {
         }
 
         variable "module_timeouts" {
-          type           = map(any)
+          type           = any
           readme_type    = "map(object)"
           description    = <<-END
             `resource_timeouts` are keyed by resource type and define default timeouts for various terraform operations (see [Operation Timeouts](https://www.terraform.io/docs/language/resources/syntax.html#operation-timeouts))
@@ -715,7 +715,7 @@ section {
         title = "Extended Resource Configuration"
 
         variable "sql_databases" {
-          type           = list(any)
+          type           = any
           readme_type    = "list(sql_databases)"
           description    = <<-END
             List of sql databases.
@@ -757,7 +757,7 @@ section {
         }
 
         variable "sql_ssl_certs" {
-          type           = list(any)
+          type           = any
           readme_type    = "list(sql_ssl_certs)"
           description    = <<-END
             List of sql ssl certs.
@@ -785,7 +785,7 @@ section {
         }
 
         variable "sql_users" {
-          type           = list(any)
+          type           = any
           readme_type    = "list(sql_users)"
           description    = <<-END
             List of sql users.
