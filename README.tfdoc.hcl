@@ -40,7 +40,7 @@ section {
     A [Terraform] module for [Google Cloud Platform (GCP)][gcp].
 
     **_This module supports Terraform version 1
-    and is compatible with the Terraform Google Provider version 3._**
+    and is compatible with the Terraform Google Provider version 4._**
 
     This module is part of our Infrastructure as Code (IaC) framework
     that enables our users and customers to easily deploy and manage reusable,
@@ -845,7 +845,7 @@ section {
   }
 
   section {
-    title   = "Module Attributes Reference"
+    title   = "Module Outputs"
     content = <<-END
       The following attributes are exported in the outputs of the module:
 
@@ -873,17 +873,24 @@ section {
 
   section {
     title   = "External Documentation"
-    content = <<-END
-      - Google Documentation:
+
+    section {
+      title = "Google Documentation"
+      content = <<-END
         - SQL Server on Google Cloud: https://cloud.google.com/sql-server
         - Configuring SSL/TLS certificates: https://cloud.google.com/sql/docs/mysql/configure-ssl-instance
+      END
+    }
 
-      - Terraform Google Provider Documentation:
+    section {
+      title = "Terraform Google Provider Documentation"
+      content = <<-END
         - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance
         - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database
         - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_ssl_cert
         - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_user
-    END
+      END
+    }
   }
 
   section {
