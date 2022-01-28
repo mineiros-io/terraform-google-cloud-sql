@@ -96,8 +96,7 @@ section {
         }
 
         variable "module_depends_on" {
-          type           = any
-          readme_type    = "list(dependencies)"
+          type           = list(dependency)
           description    = <<-END
             A list of dependencies. Any object can be _assigned_ to this list to define a hidden external dependency.
           END
@@ -224,8 +223,7 @@ section {
         }
 
         variable "database_flags" {
-          type        = any
-          readme_type = "list(database_flags)"
+          type        = list(database_flag)
           description = <<-END
             List of database flags.
           END
@@ -254,8 +252,7 @@ section {
         }
 
         variable "backup_configuration" {
-          type           = any
-          readme_type    = "object(backup_configuration)"
+          type           = object(backup_configuration)
           description    = <<-END
             An object of backup configuration.
           END
@@ -309,8 +306,7 @@ section {
           }
 
           attribute "backup_retention_settings" {
-            type           = any
-            readme_type    = "list(backup_retention_settings)"
+            type           = list(backup_retention_setting)
             description    = <<-END
               A List of backup retention settings.
             END
@@ -339,8 +335,7 @@ section {
         }
 
         variable "ip_configuration" {
-          type           = any
-          readme_type    = "object(ip_configuration)"
+          type           = object(ip_configuration)
           description    = <<-END
             An object of ip configuration.
           END
@@ -372,8 +367,7 @@ section {
           }
 
           attribute "authorized_networks" {
-            type           = any
-            readme_type    = "list(authorized_networks)"
+            type           = list(authorized_network)
             description    = <<-END
               A List of backup retention settings.
             END
@@ -408,8 +402,7 @@ section {
         }
 
         variable "location_preference" {
-          type           = any
-          readme_type    = "object(location_preference)"
+          type           = object(location_preference)
           description    = <<-END
             An object of location preferences.
           END
@@ -435,8 +428,7 @@ section {
         }
 
         variable "maintenance_window" {
-          type           = any
-          readme_type    = "object(maintenance_window)"
+          type           = object(maintenance_window)
           description    = <<-END
             An object of maintenance window.
           END
@@ -471,8 +463,7 @@ section {
         }
 
         variable "insights_config" {
-          type           = any
-          readme_type    = "object(insights_config)"
+          type           = object(insights_config)
           description    = <<-END
             An object of insight config.
           END
@@ -513,8 +504,7 @@ section {
         }
 
         variable "replica_configuration" {
-          type           = any
-          readme_type    = "object(replica_configuration)"
+          type           = object(replica_configuration)
           description    = <<-END
             An object of replica configuration.
           END
@@ -604,8 +594,7 @@ section {
         }
 
         variable "module_timeouts" {
-          type           = any
-          readme_type    = "map(object)"
+          type           = map(module_timeout)
           description    = <<-END
             `resource_timeouts` are keyed by resource type and define default timeouts for various terraform operations (see [Operation Timeouts](https://www.terraform.io/docs/language/resources/syntax.html#operation-timeouts))
           END
@@ -715,8 +704,7 @@ section {
         title = "Extended Resource Configuration"
 
         variable "sql_databases" {
-          type           = any
-          readme_type    = "list(sql_databases)"
+          type           = list(sql_database)
           description    = <<-END
             List of sql databases.
           END
@@ -757,8 +745,7 @@ section {
         }
 
         variable "sql_ssl_certs" {
-          type           = any
-          readme_type    = "list(sql_ssl_certs)"
+          type           = list(sql_ssl_cert)
           description    = <<-END
             List of sql ssl certs.
           END
@@ -785,8 +772,7 @@ section {
         }
 
         variable "sql_users" {
-          type           = any
-          readme_type    = "list(sql_users)"
+          type           = list(sql_user)
           description    = <<-END
             List of sql users.
           END
@@ -848,34 +834,49 @@ section {
     title   = "Module Outputs"
     content = <<-END
       The following attributes are exported in the outputs of the module:
-
-      - **`module_enabled`**
-
-        Whether this module is enabled.
-
-      - **`instance`**
-
-        SQL Database Instance.
-
-      - **`databases`**
-
-        All SQL Databases.
-
-      - **`certs`**
-
-        All SQL Certs.
-
-      - **`users`**
-
-        All SQL Users.
     END
+
+    output "module_enabled" {
+      type        = object(instance)
+      description = <<-END
+        Whether this module is enabled.
+      END
+    }
+
+    output "instance" {
+      type        = object(instance)
+      description = <<-END
+        SQL Database Instance.
+      END
+    }
+
+    output "databases" {
+      type        = map(database)
+      description = <<-END
+        All SQL Databases.
+      END
+    }
+
+    output "certs" {
+      type        = map(cert)
+      description = <<-END
+        All SQL Certs.
+      END
+    }
+
+    output "users" {
+      type        = map(user)
+      description = <<-END
+        All SQL Users.
+      END
+    }
   }
 
   section {
-    title   = "External Documentation"
+    title = "External Documentation"
 
     section {
-      title = "Google Documentation"
+      title   = "Google Documentation"
       content = <<-END
         - SQL Server on Google Cloud: https://cloud.google.com/sql-server
         - Configuring SSL/TLS certificates: https://cloud.google.com/sql/docs/mysql/configure-ssl-instance
@@ -883,7 +884,7 @@ section {
     }
 
     section {
-      title = "Terraform Google Provider Documentation"
+      title   = "Terraform Google Provider Documentation"
       content = <<-END
         - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database_instance
         - https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/sql_database
