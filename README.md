@@ -73,7 +73,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   Default is `true`.
 
-- [**`module_depends_on`**](#var-module_depends_on): *(Optional `list(dependencies)`)*<a name="var-module_depends_on"></a>
+- [**`module_depends_on`**](#var-module_depends_on): *(Optional `list(dependency)`)*<a name="var-module_depends_on"></a>
 
   A list of dependencies. Any object can be _assigned_ to this list to define a hidden external dependency.
 
@@ -155,17 +155,17 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   A set of key/value user label pairs to assign to the instance.
 
-- [**`database_flags`**](#var-database_flags): *(Optional `list(database_flags)`)*<a name="var-database_flags"></a>
+- [**`database_flags`**](#var-database_flags): *(Optional `list(database_flag)`)*<a name="var-database_flags"></a>
 
   List of database flags.
 
-  The object accepts the following attributes:
+  Each `database_flag` object in the list accepts the following attributes:
 
-  - [**`name`**](#attr-name-1): *(**Required** `string`)*<a name="attr-name-1"></a>
+  - [**`name`**](#attr-database_flags-name): *(**Required** `string`)*<a name="attr-database_flags-name"></a>
 
     Name of the flag.
 
-  - [**`value`**](#attr-value-1): *(**Required** `string`)*<a name="attr-value-1"></a>
+  - [**`value`**](#attr-database_flags-value): *(**Required** `string`)*<a name="attr-database_flags-value"></a>
 
     Value of the flag.
 
@@ -191,33 +191,33 @@ See [variables.tf] and [examples/] for details and use-cases.
   }
   ```
 
-  The object accepts the following attributes:
+  The `backup_configuration` object accepts the following attributes:
 
-  - [**`binary_log_enabled`**](#attr-binary_log_enabled-1): *(Optional `bool`)*<a name="attr-binary_log_enabled-1"></a>
+  - [**`binary_log_enabled`**](#attr-backup_configuration-binary_log_enabled): *(Optional `bool`)*<a name="attr-backup_configuration-binary_log_enabled"></a>
 
     True if binary logging is enabled. If `settings.backup_configuration.enabled` is `false`, this must be as well. Cannot be used with Postgres.
 
-  - [**`enabled`**](#attr-enabled-1): *(Optional `bool`)*<a name="attr-enabled-1"></a>
+  - [**`enabled`**](#attr-backup_configuration-enabled): *(Optional `bool`)*<a name="attr-backup_configuration-enabled"></a>
 
     True if backup configuration is enabled.
 
-  - [**`start_time`**](#attr-start_time-1): *(Optional `string`)*<a name="attr-start_time-1"></a>
+  - [**`start_time`**](#attr-backup_configuration-start_time): *(Optional `string`)*<a name="attr-backup_configuration-start_time"></a>
 
     `HH:MM` format time indicating when backup configuration starts.
 
-  - [**`point_in_time_recovery_enabled`**](#attr-point_in_time_recovery_enabled-1): *(Optional `bool`)*<a name="attr-point_in_time_recovery_enabled-1"></a>
+  - [**`point_in_time_recovery_enabled`**](#attr-backup_configuration-point_in_time_recovery_enabled): *(Optional `bool`)*<a name="attr-backup_configuration-point_in_time_recovery_enabled"></a>
 
     True if Point-in-time recovery is enabled. Will restart database if enabled after instance creation. Valid only for PostgreSQL instances.
 
-  - [**`location`**](#attr-location-1): *(Optional `string`)*<a name="attr-location-1"></a>
+  - [**`location`**](#attr-backup_configuration-location): *(Optional `string`)*<a name="attr-backup_configuration-location"></a>
 
     The region where the backup will be stored.
 
-  - [**`transaction_log_retention_days`**](#attr-transaction_log_retention_days-1): *(Optional `number`)*<a name="attr-transaction_log_retention_days-1"></a>
+  - [**`transaction_log_retention_days`**](#attr-backup_configuration-transaction_log_retention_days): *(Optional `number`)*<a name="attr-backup_configuration-transaction_log_retention_days"></a>
 
     The number of days of transaction logs we retain for point in time restore, from 1-7.
 
-  - [**`backup_retention_settings`**](#attr-backup_retention_settings-1): *(Optional `list(backup_retention_settings)`)*<a name="attr-backup_retention_settings-1"></a>
+  - [**`backup_retention_settings`**](#attr-backup_configuration-backup_retention_settings): *(Optional `list(backup_retention_setting)`)*<a name="attr-backup_configuration-backup_retention_settings"></a>
 
     A List of backup retention settings.
 
@@ -230,13 +230,13 @@ See [variables.tf] and [examples/] for details and use-cases.
     }]
     ```
 
-    The object accepts the following attributes:
+    Each `backup_retention_setting` object in the list accepts the following attributes:
 
-    - [**`retained_backups`**](#attr-retained_backups-2): *(Optional `number`)*<a name="attr-retained_backups-2"></a>
+    - [**`retained_backups`**](#attr-backup_configuration-backup_retention_settings-retained_backups): *(Optional `number`)*<a name="attr-backup_configuration-backup_retention_settings-retained_backups"></a>
 
       Depending on the value of `retention_unit`, this is used to determine if a backup needs to be deleted. If `retention_unit` is `COUNT`, we will retain this many backups.
 
-    - [**`retention_unit`**](#attr-retention_unit-2): *(Optional `string`)*<a name="attr-retention_unit-2"></a>
+    - [**`retention_unit`**](#attr-backup_configuration-backup_retention_settings-retention_unit): *(Optional `string`)*<a name="attr-backup_configuration-backup_retention_settings-retention_unit"></a>
 
       The unit that `retained_backups` represents.
 
@@ -254,21 +254,21 @@ See [variables.tf] and [examples/] for details and use-cases.
   }
   ```
 
-  The object accepts the following attributes:
+  The `ip_configuration` object accepts the following attributes:
 
-  - [**`ipv4_enabled`**](#attr-ipv4_enabled-1): *(Optional `bool`)*<a name="attr-ipv4_enabled-1"></a>
+  - [**`ipv4_enabled`**](#attr-ip_configuration-ipv4_enabled): *(Optional `bool`)*<a name="attr-ip_configuration-ipv4_enabled"></a>
 
     Whether this Cloud SQL instance should be assigned a public IPV4 address. At least `ipv4_enabled` must be enabled or a `private_network` must be configured.
 
-  - [**`private_network`**](#attr-private_network-1): *(Optional `string`)*<a name="attr-private_network-1"></a>
+  - [**`private_network`**](#attr-ip_configuration-private_network): *(Optional `string`)*<a name="attr-ip_configuration-private_network"></a>
 
     The VPC network from which the Cloud SQL instance is accessible for private IP. For example, `projects/myProject/global/networks/default`. Specifying a network enables private IP. At least `ipv4_enabled` must be enabled or a `private_network` must be configured. This setting can be updated, but it cannot be removed after it is set.
 
-  - [**`require_ssl`**](#attr-require_ssl-1): *(Optional `bool`)*<a name="attr-require_ssl-1"></a>
+  - [**`require_ssl`**](#attr-ip_configuration-require_ssl): *(Optional `bool`)*<a name="attr-ip_configuration-require_ssl"></a>
 
     Whether SSL connections over IP are enforced or not.
 
-  - [**`authorized_networks`**](#attr-authorized_networks-1): *(Optional `list(authorized_networks)`)*<a name="attr-authorized_networks-1"></a>
+  - [**`authorized_networks`**](#attr-ip_configuration-authorized_networks): *(Optional `list(authorized_network)`)*<a name="attr-ip_configuration-authorized_networks"></a>
 
     A List of backup retention settings.
 
@@ -280,17 +280,17 @@ See [variables.tf] and [examples/] for details and use-cases.
     }]
     ```
 
-    The object accepts the following attributes:
+    Each `authorized_network` object in the list accepts the following attributes:
 
-    - [**`expiration_time`**](#attr-expiration_time-2): *(Optional `string`)*<a name="attr-expiration_time-2"></a>
+    - [**`expiration_time`**](#attr-ip_configuration-authorized_networks-expiration_time): *(Optional `string`)*<a name="attr-ip_configuration-authorized_networks-expiration_time"></a>
 
       The RFC 3339 formatted date time string indicating when this whitelist expires.
 
-    - [**`name`**](#attr-name-2): *(Optional `string`)*<a name="attr-name-2"></a>
+    - [**`name`**](#attr-ip_configuration-authorized_networks-name): *(Optional `string`)*<a name="attr-ip_configuration-authorized_networks-name"></a>
 
       A name for this whitelist entry.
 
-    - [**`value`**](#attr-value-2): *(**Required** `string`)*<a name="attr-value-2"></a>
+    - [**`value`**](#attr-ip_configuration-authorized_networks-value): *(**Required** `string`)*<a name="attr-ip_configuration-authorized_networks-value"></a>
 
       A CIDR notation IPv4 or IPv6 address that is allowed to access this instance. Must be set even if other two attributes are not for the whitelist to become active.
 
@@ -306,13 +306,13 @@ See [variables.tf] and [examples/] for details and use-cases.
   }
   ```
 
-  The object accepts the following attributes:
+  The `location_preference` object accepts the following attributes:
 
-  - [**`follow_gae_application`**](#attr-follow_gae_application-1): *(Optional `string`)*<a name="attr-follow_gae_application-1"></a>
+  - [**`follow_gae_application`**](#attr-location_preference-follow_gae_application): *(Optional `string`)*<a name="attr-location_preference-follow_gae_application"></a>
 
     A GAE application whose zone to remain in. Must be in the same region as this instance.
 
-  - [**`zone`**](#attr-zone-1): *(Optional `string`)*<a name="attr-zone-1"></a>
+  - [**`zone`**](#attr-location_preference-zone): *(Optional `string`)*<a name="attr-location_preference-zone"></a>
 
     The preferred compute engine zone.
 
@@ -330,17 +330,17 @@ See [variables.tf] and [examples/] for details and use-cases.
   }
   ```
 
-  The object accepts the following attributes:
+  The `maintenance_window` object accepts the following attributes:
 
-  - [**`day`**](#attr-day-1): *(Optional `number`)*<a name="attr-day-1"></a>
+  - [**`day`**](#attr-maintenance_window-day): *(Optional `number`)*<a name="attr-maintenance_window-day"></a>
 
     Day of week (1-7), starting on Monday.
 
-  - [**`hour`**](#attr-hour-1): *(Optional `number`)*<a name="attr-hour-1"></a>
+  - [**`hour`**](#attr-maintenance_window-hour): *(Optional `number`)*<a name="attr-maintenance_window-hour"></a>
 
     Hour of day (0-23), ignored if day not set.
 
-  - [**`update_track`**](#attr-update_track-1): *(Optional `string`)*<a name="attr-update_track-1"></a>
+  - [**`update_track`**](#attr-maintenance_window-update_track): *(Optional `string`)*<a name="attr-maintenance_window-update_track"></a>
 
     Receive updates earlier `canary` or later `stable`.
 
@@ -356,23 +356,23 @@ See [variables.tf] and [examples/] for details and use-cases.
   }
   ```
 
-  The object accepts the following attributes:
+  The `insights_config` object accepts the following attributes:
 
-  - [**`query_insights_enabled`**](#attr-query_insights_enabled-1): *(Optional `bool`)*<a name="attr-query_insights_enabled-1"></a>
+  - [**`query_insights_enabled`**](#attr-insights_config-query_insights_enabled): *(Optional `bool`)*<a name="attr-insights_config-query_insights_enabled"></a>
 
     True if Query Insights feature is enabled.
 
-  - [**`query_string_length`**](#attr-query_string_length-1): *(Optional `number`)*<a name="attr-query_string_length-1"></a>
+  - [**`query_string_length`**](#attr-insights_config-query_string_length): *(Optional `number`)*<a name="attr-insights_config-query_string_length"></a>
 
     Maximum query length stored in bytes. Between 256 and 4500. Default to 1024.
 
     Default is `1024`.
 
-  - [**`record_application_tags`**](#attr-record_application_tags-1): *(Optional `bool`)*<a name="attr-record_application_tags-1"></a>
+  - [**`record_application_tags`**](#attr-insights_config-record_application_tags): *(Optional `bool`)*<a name="attr-insights_config-record_application_tags"></a>
 
     True if Query Insights will record application tags from query when enabled.
 
-  - [**`record_client_address`**](#attr-record_client_address-1): *(Optional `bool`)*<a name="attr-record_client_address-1"></a>
+  - [**`record_client_address`**](#attr-insights_config-record_client_address): *(Optional `bool`)*<a name="attr-insights_config-record_client_address"></a>
 
     True if Query Insights will record client address when enabled.
 
@@ -388,55 +388,55 @@ See [variables.tf] and [examples/] for details and use-cases.
   }
   ```
 
-  The object accepts the following attributes:
+  The `replica_configuration` object accepts the following attributes:
 
-  - [**`ca_certificate`**](#attr-ca_certificate-1): *(Optional `string`)*<a name="attr-ca_certificate-1"></a>
+  - [**`ca_certificate`**](#attr-replica_configuration-ca_certificate): *(Optional `string`)*<a name="attr-replica_configuration-ca_certificate"></a>
 
     PEM representation of the trusted CA's x509 certificate.
 
-  - [**`client_certificate`**](#attr-client_certificate-1): *(Optional `string`)*<a name="attr-client_certificate-1"></a>
+  - [**`client_certificate`**](#attr-replica_configuration-client_certificate): *(Optional `string`)*<a name="attr-replica_configuration-client_certificate"></a>
 
     PEM representation of the replica's x509 certificate.
 
-  - [**`client_key`**](#attr-client_key-1): *(Optional `string`)*<a name="attr-client_key-1"></a>
+  - [**`client_key`**](#attr-replica_configuration-client_key): *(Optional `string`)*<a name="attr-replica_configuration-client_key"></a>
 
     PEM representation of the replica's private key. The corresponding public key in encoded in the `client_certificate`.
 
-  - [**`connect_retry_interval`**](#attr-connect_retry_interval-1): *(Optional `number`)*<a name="attr-connect_retry_interval-1"></a>
+  - [**`connect_retry_interval`**](#attr-replica_configuration-connect_retry_interval): *(Optional `number`)*<a name="attr-replica_configuration-connect_retry_interval"></a>
 
     The number of seconds between connect retries.
 
     Default is `60`.
 
-  - [**`dump_file_path`**](#attr-dump_file_path-1): *(Optional `string`)*<a name="attr-dump_file_path-1"></a>
+  - [**`dump_file_path`**](#attr-replica_configuration-dump_file_path): *(Optional `string`)*<a name="attr-replica_configuration-dump_file_path"></a>
 
     Path to a SQL file in GCS from which replica instances are created. Format is `gs://bucket/filename`.
 
-  - [**`failover_target`**](#attr-failover_target-1): *(Optional `bool`)*<a name="attr-failover_target-1"></a>
+  - [**`failover_target`**](#attr-replica_configuration-failover_target): *(Optional `bool`)*<a name="attr-replica_configuration-failover_target"></a>
 
     Specifies if the replica is the failover target. If the field is set to true the replica will be designated as a failover replica. If the master instance fails, the replica instance will be promoted as the new master instance.
 
-  - [**`master_heartbeat_period`**](#attr-master_heartbeat_period-1): *(Optional `number`)*<a name="attr-master_heartbeat_period-1"></a>
+  - [**`master_heartbeat_period`**](#attr-replica_configuration-master_heartbeat_period): *(Optional `number`)*<a name="attr-replica_configuration-master_heartbeat_period"></a>
 
     Time in ms between replication heartbeats.
 
-  - [**`password`**](#attr-password-1): *(Optional `string`)*<a name="attr-password-1"></a>
+  - [**`password`**](#attr-replica_configuration-password): *(Optional `string`)*<a name="attr-replica_configuration-password"></a>
 
     Password for the replication connection.
 
-  - [**`ssl_cipher`**](#attr-ssl_cipher-1): *(Optional `string`)*<a name="attr-ssl_cipher-1"></a>
+  - [**`ssl_cipher`**](#attr-replica_configuration-ssl_cipher): *(Optional `string`)*<a name="attr-replica_configuration-ssl_cipher"></a>
 
     Permissible ciphers for use in SSL encryption.
 
-  - [**`username`**](#attr-username-1): *(Optional `string`)*<a name="attr-username-1"></a>
+  - [**`username`**](#attr-replica_configuration-username): *(Optional `string`)*<a name="attr-replica_configuration-username"></a>
 
     Username for replication connection.
 
-  - [**`verify_server_certificate`**](#attr-verify_server_certificate-1): *(Optional `bool`)*<a name="attr-verify_server_certificate-1"></a>
+  - [**`verify_server_certificate`**](#attr-replica_configuration-verify_server_certificate): *(Optional `bool`)*<a name="attr-replica_configuration-verify_server_certificate"></a>
 
     True if the master's common name value is checked during the SSL handshake.
 
-- [**`module_timeouts`**](#var-module_timeouts): *(Optional `map(object)`)*<a name="var-module_timeouts"></a>
+- [**`module_timeouts`**](#var-module_timeouts): *(Optional `map(module_timeout)`)*<a name="var-module_timeouts"></a>
 
   `resource_timeouts` are keyed by resource type and define default timeouts for various terraform operations (see [Operation Timeouts](https://www.terraform.io/docs/language/resources/syntax.html#operation-timeouts))
 
@@ -452,93 +452,93 @@ See [variables.tf] and [examples/] for details and use-cases.
   }
   ```
 
-  The object accepts the following attributes:
+  Each `module_timeout` object in the map accepts the following attributes:
 
-  - [**`google_sql_database_instance`**](#attr-google_sql_database_instance-1): *(Optional `map(string)`)*<a name="attr-google_sql_database_instance-1"></a>
+  - [**`google_sql_database_instance`**](#attr-module_timeouts-google_sql_database_instance): *(Optional `map(string)`)*<a name="attr-module_timeouts-google_sql_database_instance"></a>
 
     - **`create`**: _(Optional)_ 
-    
+
       Used for sql database instance creation. 
-    
+
       Default is `"30m"`.
-    
+
     - **`update`**: _(Optional)_ 
-    
+
       Used for sql database instance manipulation. 
-    
+
       Default is `"30m"`.
-    
+
     - **`delete`**: _(Optional)_ 
-    
+
       Used for sql database instance deletion.  
-    
+
       Default is `"30m"`.
 
     Default is `"30m"`.
 
-  - [**`google_sql_database`**](#attr-google_sql_database-1): *(Optional `map(string)`)*<a name="attr-google_sql_database-1"></a>
+  - [**`google_sql_database`**](#attr-module_timeouts-google_sql_database): *(Optional `map(string)`)*<a name="attr-module_timeouts-google_sql_database"></a>
 
     - **`create`**: _(Optional)_ 
-    
+
       Used for sql database creation. 
-    
+
       Default is `"15m"`.
-    
+
     - **`update`**: _(Optional)_ 
-    
+
       Used for sql database manipulation. 
-    
+
       Default is `"10m"`.
-    
+
     - **`delete`**: _(Optional)_ 
-    
+
       Used for sql database deletion.  
-    
+
       Default is `"10m"`.
 
     Default is `"15m"`.
 
-  - [**`google_sql_ssl_cert`**](#attr-google_sql_ssl_cert-1): *(Optional `map(string)`)*<a name="attr-google_sql_ssl_cert-1"></a>
+  - [**`google_sql_ssl_cert`**](#attr-module_timeouts-google_sql_ssl_cert): *(Optional `map(string)`)*<a name="attr-module_timeouts-google_sql_ssl_cert"></a>
 
     - **`create`**: _(Optional)_ 
-    
+
       Used for sql user creation. 
-    
+
       Default is `"10m"`.
-    
+
     - **`delete`**: _(Optional)_ 
-    
+
       Used for sql user deletion.  
-    
+
       Default is `"10m"`.
 
     Default is `"10m"`.
 
-  - [**`google_sql_user`**](#attr-google_sql_user-1): *(Optional `map(string)`)*<a name="attr-google_sql_user-1"></a>
+  - [**`google_sql_user`**](#attr-module_timeouts-google_sql_user): *(Optional `map(string)`)*<a name="attr-module_timeouts-google_sql_user"></a>
 
     - **`create`**: _(Optional)_ 
-    
+
       Used for sql user creation. 
-    
+
       Default is `"10m"`.
-    
+
     - **`update`**: _(Optional)_ 
-    
+
       Used for sql user manipulation. 
-    
+
       Default is `"10m"`.
-    
+
     - **`delete`**: _(Optional)_ 
-    
+
       Used for sql user deletion.  
-    
+
       Default is `"10m"`.
 
     Default is `"10m"`.
 
 #### Extended Resource Configuration
 
-- [**`sql_databases`**](#var-sql_databases): *(Optional `list(sql_databases)`)*<a name="var-sql_databases"></a>
+- [**`sql_databases`**](#var-sql_databases): *(Optional `list(sql_database)`)*<a name="var-sql_databases"></a>
 
   List of sql databases.
 
@@ -550,25 +550,25 @@ See [variables.tf] and [examples/] for details and use-cases.
   }]
   ```
 
-  The object accepts the following attributes:
+  Each `sql_database` object in the list accepts the following attributes:
 
-  - [**`name`**](#attr-name-1): *(**Required** `string`)*<a name="attr-name-1"></a>
+  - [**`name`**](#attr-sql_databases-name): *(**Required** `string`)*<a name="attr-sql_databases-name"></a>
 
     The Name of the database.
 
-  - [**`charset`**](#attr-charset-1): *(Optional `string`)*<a name="attr-charset-1"></a>
+  - [**`charset`**](#attr-sql_databases-charset): *(Optional `string`)*<a name="attr-sql_databases-charset"></a>
 
     The charset value. Postgres databases only support a value of `UTF8` at creation time.
 
-  - [**`collation`**](#attr-collation-1): *(Optional `string`)*<a name="attr-collation-1"></a>
+  - [**`collation`**](#attr-sql_databases-collation): *(Optional `string`)*<a name="attr-sql_databases-collation"></a>
 
     The collation value. Postgres databases only support a value of `en_US.UTF8` at creation time.
 
-  - [**`project`**](#attr-project-1): *(Optional `string`)*<a name="attr-project-1"></a>
+  - [**`project`**](#attr-sql_databases-project): *(Optional `string`)*<a name="attr-sql_databases-project"></a>
 
     The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
 
-- [**`sql_ssl_certs`**](#var-sql_ssl_certs): *(Optional `list(sql_ssl_certs)`)*<a name="var-sql_ssl_certs"></a>
+- [**`sql_ssl_certs`**](#var-sql_ssl_certs): *(Optional `list(sql_ssl_cert)`)*<a name="var-sql_ssl_certs"></a>
 
   List of sql ssl certs.
 
@@ -580,17 +580,17 @@ See [variables.tf] and [examples/] for details and use-cases.
   }]
   ```
 
-  The object accepts the following attributes:
+  Each `sql_ssl_cert` object in the list accepts the following attributes:
 
-  - [**`common_name`**](#attr-common_name-1): *(**Required** `string`)*<a name="attr-common_name-1"></a>
+  - [**`common_name`**](#attr-sql_ssl_certs-common_name): *(**Required** `string`)*<a name="attr-sql_ssl_certs-common_name"></a>
 
     The common name to be used in the certificate to identify the client. Constrained to [a-zA-Z.-_ ]+. Changing this forces a new resource to be created.
 
-  - [**`project`**](#attr-project-1): *(Optional `string`)*<a name="attr-project-1"></a>
+  - [**`project`**](#attr-sql_ssl_certs-project): *(Optional `string`)*<a name="attr-sql_ssl_certs-project"></a>
 
     The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
 
-- [**`sql_users`**](#var-sql_users): *(Optional `list(sql_users)`)*<a name="var-sql_users"></a>
+- [**`sql_users`**](#var-sql_users): *(Optional `list(sql_user)`)*<a name="var-sql_users"></a>
 
   List of sql users.
 
@@ -603,29 +603,29 @@ See [variables.tf] and [examples/] for details and use-cases.
   }]
   ```
 
-  The object accepts the following attributes:
+  Each `sql_user` object in the list accepts the following attributes:
 
-  - [**`name`**](#attr-name-1): *(**Required** `string`)*<a name="attr-name-1"></a>
+  - [**`name`**](#attr-sql_users-name): *(**Required** `string`)*<a name="attr-sql_users-name"></a>
 
     The Name of the user.
 
-  - [**`password`**](#attr-password-1): *(Optional `string`)*<a name="attr-password-1"></a>
+  - [**`password`**](#attr-sql_users-password): *(Optional `string`)*<a name="attr-sql_users-password"></a>
 
     The password for the user. Can be updated. For Postgres instances this is a Required field.
 
-  - [**`type`**](#attr-type-1): *(Optional `string`)*<a name="attr-type-1"></a>
+  - [**`type`**](#attr-sql_users-type): *(Optional `string`)*<a name="attr-sql_users-type"></a>
 
     The user type. It determines the method to authenticate the user during login. The default is the database's built-in user type. Flags include `BUILT_IN`, `CLOUD_IAM_USER`, or `CLOUD_IAM_SERVICE_ACCOUNT`.
 
-  - [**`deletion_policy`**](#attr-deletion_policy-1): *(Optional `string`)*<a name="attr-deletion_policy-1"></a>
+  - [**`deletion_policy`**](#attr-sql_users-deletion_policy): *(Optional `string`)*<a name="attr-sql_users-deletion_policy"></a>
 
     The deletion policy for the user. Setting `ABANDON` allows the resource to be abandoned rather than deleted. This is useful for Postgres, where users cannot be deleted from the API if they have been granted SQL roles. Possible values are: `ABANDON`.
 
-  - [**`host`**](#attr-host-1): *(Optional `string`)*<a name="attr-host-1"></a>
+  - [**`host`**](#attr-sql_users-host): *(Optional `string`)*<a name="attr-sql_users-host"></a>
 
     The host the user can connect from. This is only supported for MySQL instances. Don't set this field for PostgreSQL instances. Can be an IP address. Changing this forces a new resource to be created.
 
-  - [**`project`**](#attr-project-1): *(Optional `string`)*<a name="attr-project-1"></a>
+  - [**`project`**](#attr-sql_users-project): *(Optional `string`)*<a name="attr-sql_users-project"></a>
 
     The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
 
@@ -633,23 +633,23 @@ See [variables.tf] and [examples/] for details and use-cases.
 
 The following attributes are exported in the outputs of the module:
 
-- **`module_enabled`**
+- [**`module_enabled`**](#output-module_enabled): *(`object(instance)`)*<a name="output-module_enabled"></a>
 
   Whether this module is enabled.
 
-- **`instance`**
+- [**`instance`**](#output-instance): *(`object(instance)`)*<a name="output-instance"></a>
 
   SQL Database Instance.
 
-- **`databases`**
+- [**`databases`**](#output-databases): *(`map(database)`)*<a name="output-databases"></a>
 
   All SQL Databases.
 
-- **`certs`**
+- [**`certs`**](#output-certs): *(`map(cert)`)*<a name="output-certs"></a>
 
   All SQL Certs.
 
-- **`users`**
+- [**`users`**](#output-users): *(`map(user)`)*<a name="output-users"></a>
 
   All SQL Users.
 
