@@ -21,10 +21,9 @@ secure, and production-grade cloud infrastructure.
 - [Module Features](#module-features)
 - [Getting Started](#getting-started)
 - [Module Argument Reference](#module-argument-reference)
-  - [Top-level Arguments](#top-level-arguments)
-    - [Module Configuration](#module-configuration)
-    - [Main Resource Configuration](#main-resource-configuration)
-    - [Extended Resource Configuration](#extended-resource-configuration)
+  - [Module Configuration](#module-configuration)
+  - [Main Resource Configuration](#main-resource-configuration)
+  - [Extended Resource Configuration](#extended-resource-configuration)
 - [Module Outputs](#module-outputs)
 - [External Documentation](#external-documentation)
   - [Google Documentation](#google-documentation)
@@ -63,9 +62,7 @@ module "terraform-google-cloud-sql" {
 
 See [variables.tf] and [examples/] for details and use-cases.
 
-### Top-level Arguments
-
-#### Module Configuration
+### Module Configuration
 
 - [**`module_enabled`**](#var-module_enabled): *(Optional `bool`)*<a name="var-module_enabled"></a>
 
@@ -85,7 +82,7 @@ See [variables.tf] and [examples/] for details and use-cases.
   ]
   ```
 
-#### Main Resource Configuration
+### Main Resource Configuration
 
 - [**`database_version`**](#var-database_version): *(**Required** `string`)*<a name="var-database_version"></a>
 
@@ -267,6 +264,15 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`require_ssl`**](#attr-ip_configuration-require_ssl): *(Optional `bool`)*<a name="attr-ip_configuration-require_ssl"></a>
 
     Whether SSL connections over IP are enforced or not.
+
+  - [**`allocated_ip_range `**](#attr-ip_configuration-allocated_ip_range ): *(Optional `string`)*<a name="attr-ip_configuration-allocated_ip_range "></a>
+
+    The name of the allocated ip range for the private ip CloudSQL instance.
+    For example: `google-managed-services-default`. If set, the instance
+    ip will be created in the allocated range. The range name must
+    comply with [RFC 1035](https://tools.ietf.org/html/rfc1035).
+    Specifically, the name must be 1-63 characters long and match
+    the regular expression `a-z?`.
 
   - [**`authorized_networks`**](#attr-ip_configuration-authorized_networks): *(Optional `list(authorized_network)`)*<a name="attr-ip_configuration-authorized_networks"></a>
 
@@ -536,7 +542,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     Default is `"10m"`.
 
-#### Extended Resource Configuration
+### Extended Resource Configuration
 
 - [**`sql_databases`**](#var-sql_databases): *(Optional `list(sql_database)`)*<a name="var-sql_databases"></a>
 

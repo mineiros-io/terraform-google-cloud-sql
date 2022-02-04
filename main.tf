@@ -67,9 +67,10 @@ resource "google_sql_database_instance" "instance" {
       for_each = local.ip_configuration
 
       content {
-        ipv4_enabled    = try(ip_configuration.value.ipv4_enabled, null)
-        private_network = try(ip_configuration.value.private_network, null)
-        require_ssl     = try(ip_configuration.value.require_ssl, null)
+        ipv4_enabled       = try(ip_configuration.value.ipv4_enabled, null)
+        private_network    = try(ip_configuration.value.private_network, null)
+        require_ssl        = try(ip_configuration.value.require_ssl, null)
+        allocated_ip_range = try(ip_configuration.value.allocated_ip_range, null)
 
         dynamic "authorized_networks" {
           for_each = try(ip_configuration.value.authorized_networks, [])
