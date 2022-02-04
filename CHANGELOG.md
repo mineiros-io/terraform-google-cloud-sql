@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### BREAKING CHANGES
 
 - Removed support for Terraform `< 1.0`
+- Removed support for Google Provider `< 4.4`
 
 ## [0.0.2]
 
