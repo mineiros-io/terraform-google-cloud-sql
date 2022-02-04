@@ -9,12 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### BREAKING CHANGES
 
-- Removed support for Terraform `< 1.0`
-- Removed support for Google Provider `< 4.4`
+- Removed support for Terraform `< v1.0`
+- Removed support for Google Provider `< v4.4`
 
 ## Added
 
 - Added `allocated_ip_range` attribute to `settings.ip_configuration` block
+
+## Removed
+
+- Removed `replication_type` since it's been removed in provider `v0.4`
 
 ## [0.0.2]
 
