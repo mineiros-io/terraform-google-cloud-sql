@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.0.3]
+
+### BREAKING CHANGES
+
+- Removed support for Terraform `< v1.0`
+- Removed support for Google Provider `< v4.4`
+
+## Added
+
+- Added `allocated_ip_range` attribute to `settings.ip_configuration` block
+
+## Removed
+
+- Removed `replication_type` since it's been removed in provider `v0.4`
+
 ## [0.0.2]
 
 ### Fixed
@@ -19,11 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Initial Implementation
 
-<!-- markdown-link-check-disable -->
-
-[unreleased]: https://github.com/mineiros-io/terraform-google-cloud-sql/compare/v0.0.2...HEAD
+[unreleased]: https://github.com/mineiros-io/terraform-google-cloud-sql/compare/v0.0.3...HEAD
+[0.0.3]: https://github.com/mineiros-io/terraform-google-cloud-sql/compare/v0.0.2...v0.0.3
 [0.0.2]: https://github.com/mineiros-io/terraform-google-cloud-sql/compare/v0.0.1...v0.0.2
-
-<!-- markdown-link-check-disabled -->
-
 [0.0.1]: https://github.com/mineiros-io/terraform-google-cloud-sql/releases/tag/v0.0.1

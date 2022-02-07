@@ -109,17 +109,6 @@ variable "pricing_plan" {
   }
 }
 
-variable "replication_type" {
-  description = "(Optional) This property is only applicable to First Generation instances."
-  type        = string
-  default     = null
-
-  validation {
-    condition     = var.replication_type == null || (var.replication_type == null ? true : contains(["ASYNCHRONOUS", "SYNCHRONOUS"], var.replication_type))
-    error_message = "The value must only be one of these valid values: ASYNCHRONOUS, SYNCHRONOUS."
-  }
-}
-
 variable "user_labels" {
   description = "(Optional) A set of key/value user label pairs to assign to the instance."
   type        = map(string)

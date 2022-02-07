@@ -1,7 +1,7 @@
 # Set default shell to bash
 SHELL := /bin/bash -o pipefail
 
-BUILD_TOOLS_VERSION      ?= v0.13.0
+BUILD_TOOLS_VERSION      ?= v0.14.3
 BUILD_TOOLS_DOCKER_REPO  ?= mineiros/build-tools
 BUILD_TOOLS_DOCKER_IMAGE ?= ${BUILD_TOOLS_DOCKER_REPO}:${BUILD_TOOLS_VERSION}
 
@@ -59,6 +59,13 @@ ifdef AWS_ACCESS_KEY_ID
   DOCKER_AWS_FLAGS += -e AWS_SESSION_TOKEN
 endif
 
+# If GOOGLE_CREDENTIALS is defined, we are likely running inside a GCP provider
+# module. To enable GCP authentication inside the docker container, we inject
+# the relevant environment variables (service-account key file).
+ifdef GOOGLE_CREDENTIALS
+	DOCKER_GCP_FLAGS += -e GOOGLE_CREDENTIALS
+endif
+
 # If GITHUB_OWNER is defined, we are likely running inside a GitHub provider
 # module. To enable GitHub authentication inside the docker container,
 # we inject the relevant environment variables.
@@ -81,6 +88,24 @@ template/adjust:
 test/pre-commit: DOCKER_FLAGS += ${DOCKER_SSH_FLAGS}
 test/pre-commit:
 	$(call docker-run,pre-commit run -a)
+
+## Run all Go tests inside a build-tools docker container. This is complementary to running 'go test ./test/...'.
+.PHONY: test/unit-tests
+test/unit-tests: DOCKER_FLAGS += ${DOCKER_SSH_FLAGS}
+test/unit-tests: DOCKER_FLAGS += ${DOCKER_GITHUB_FLAGS}
+test/unit-tests: DOCKER_FLAGS += ${DOCKER_AWS_FLAGS}
+test/unit-tests: DOCKER_FLAGS += ${DOCKER_GCP_FLAGS}
+test/unit-tests: DOCKER_FLAGS += $(shell env | grep ^TF_VAR_ | cut -d = -f 1 | xargs -i printf ' -e {}')
+test/unit-tests: DOCKER_FLAGS += -e TF_DATA_DIR=.terratest
+test/unit-tests: TEST ?= "TestUnit"
+test/unit-tests:
+	@echo "${YELLOW}[TEST] ${GREEN}Start Running Go Tests in Docker Container.${RESET}"
+	$(call go-test,./test -run $(TEST))
+
+## Generate README.md with Terradoc
+.PHONY: terradoc
+terradoc:
+	$(call quiet-command,terradoc -o README.md README.tfdoc.hcl)
 
 ## Clean up cache and temporary files
 .PHONY: clean
@@ -105,15 +130,11 @@ help:
 	} \
 	{ lastLine = $$0 }' $(MAKEFILE_LIST)
 
-## Generate README.md with Terradoc
-.PHONY: terradoc
-terradoc:
-	$(call quiet-command,terradoc -o README.md README.tfdoc.hcl)
-
 # Define helper functions
 DOCKER_FLAGS   += ${DOCKER_RUN_FLAGS}
 DOCKER_RUN_CMD  = docker run ${DOCKER_FLAGS} ${BUILD_TOOLS_DOCKER_IMAGE}
 
 quiet-command = $(if ${V},${1},$(if ${2},@echo ${2} && ${1}, @${1}))
 docker-run    = $(call quiet-command,${DOCKER_RUN_CMD} ${1} | cat,"${YELLOW}[DOCKER RUN] ${GREEN}${1}${RESET}")
+go-test       = $(call quiet-command,${DOCKER_RUN_CMD} go test -v -count 1 -timeout 45m -parallel 128 ${1} | cat,"${YELLOW}[TEST] ${GREEN}${1}${RESET}")
 rm-command    = $(call quiet-command,rm -rf ${1},"${YELLOW}[CLEAN] ${GREEN}${1}${RESET}")
