@@ -13,7 +13,10 @@ out/
 .DS_Store
 
 # Local .terraform directories
-**/.terraform/*
+ **/.terraform/*
+
+# Local .terratest directories
+ **/.terratest/*
 
 # .tfstate files
 *.tfstate
