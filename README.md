@@ -92,7 +92,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   The machine type to use.
 
-- [**`name`**](#var-name): *(Optional `number`)*<a name="var-name"></a>
+- [**`name`**](#var-name): *(Optional `string`)*<a name="var-name"></a>
 
   The name of the instance. If the name is left blank, Terraform will randomly generate one when the instance is first created. This is done because after a name is used, it cannot be reused for up to one week.
 
@@ -143,10 +143,6 @@ See [variables.tf] and [examples/] for details and use-cases.
 - [**`pricing_plan`**](#var-pricing_plan): *(Optional `string`)*<a name="var-pricing_plan"></a>
 
   Pricing plan for this instance, can only be `PER_USE`.
-
-- [**`replication_type`**](#var-replication_type): *(Optional `string`)*<a name="var-replication_type"></a>
-
-  This property is only applicable to First Generation instances. Replication type for this instance, can be one of `ASYNCHRONOUS` or `SYNCHRONOUS`.
 
 - [**`user_labels`**](#var-user_labels): *(Optional `map(string)`)*<a name="var-user_labels"></a>
 

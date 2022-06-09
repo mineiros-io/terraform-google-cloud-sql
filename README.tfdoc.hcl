@@ -125,7 +125,7 @@ section {
       }
 
       variable "name" {
-        type        = number
+        type        = string
         description = <<-END
           The name of the instance. If the name is left blank, Terraform will randomly generate one when the instance is first created. This is done because after a name is used, it cannot be reused for up to one week.
         END
@@ -202,13 +202,6 @@ section {
         type        = string
         description = <<-END
           Pricing plan for this instance, can only be `PER_USE`.
-        END
-      }
-
-      variable "replication_type" {
-        type        = string
-        description = <<-END
-          This property is only applicable to First Generation instances. Replication type for this instance, can be one of `ASYNCHRONOUS` or `SYNCHRONOUS`.
         END
       }
 
