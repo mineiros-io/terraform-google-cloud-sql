@@ -51,7 +51,7 @@ Most basic usage just setting required arguments:
 
 ```hcl
 module "terraform-google-cloud-sql" {
-  source = "github.com/mineiros-io/terraform-google-cloud-sql.git?ref=v0.0.4"
+  source = "github.com/mineiros-io/terraform-google-cloud-sql.git?ref=v0.0.5"
 
   tier             = "db-f1-micro"
   database_version = "MYSQL_5_6"
