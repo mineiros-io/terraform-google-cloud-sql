@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add unit tests
 
+## Removed
+
+- Removed validation from `var.database_version`
+
 ## [0.0.4]
 
 ### BREAKING CHANGES

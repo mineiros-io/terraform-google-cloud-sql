@@ -6,11 +6,6 @@
 variable "database_version" {
   description = "(Required) The MySQL, PostgreSQL or SQL Server (beta) version to use."
   type        = string
-
-  validation {
-    condition     = contains(["MYSQL_5_6", "MYSQL_5_7", "MYSQL_8_0", "POSTGRES_9_6", "POSTGRES_10", "POSTGRES_11", "POSTGRES_12", "POSTGRES_13"], var.database_version)
-    error_message = "The value must only be one of these valid values: MYSQL_5_6, MYSQL_5_7, MYSQL_8_0, POSTGRES_9_6, POSTGRES_10, POSTGRES_11, POSTGRES_12, POSTGRES_13."
-  }
 }
 
 variable "tier" {
@@ -157,12 +152,6 @@ variable "replica_configuration" {
   default     = {}
 }
 
-variable "module_timeouts" {
-  description = "(Optional) How long certain operations (per resource type) are allowed to take before being considered to have failed."
-  type        = any
-  default     = {}
-}
-
 variable "sql_databases" {
   description = "(Optional) List of SQL Databases."
   type        = any
@@ -200,6 +189,12 @@ variable "module_enabled" {
   type        = bool
   description = "(Optional) Whether to create resources within the module or not. Default is 'true'."
   default     = true
+}
+
+variable "module_timeouts" {
+  description = "(Optional) How long certain operations (per resource type) are allowed to take before being considered to have failed."
+  type        = any
+  default     = {}
 }
 
 variable "module_depends_on" {
