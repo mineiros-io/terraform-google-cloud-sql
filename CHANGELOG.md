@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Validation added for `database_version` string input variable
+
 ## [0.0.5]
 
 ## Added
