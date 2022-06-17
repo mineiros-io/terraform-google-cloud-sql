@@ -42,6 +42,8 @@ section {
     **_This module supports Terraform version 1
     and is compatible with the Terraform Google Provider version 4._**
 
+    **NOTE: This module doesn't support SQL Server**
+
     This module is part of our Infrastructure as Code (IaC) framework
     that enables our users and customers to easily deploy and manage reusable,
     secure, and production-grade cloud infrastructure.
@@ -112,7 +114,7 @@ section {
         required    = true
         type        = string
         description = <<-END
-          The MySQL, PostgreSQL or SQL Server (beta) version to use.
+          The MySQL or PostgreSQL version to use.
         END
       }
 
@@ -215,7 +217,7 @@ section {
       variable "database_flags" {
         type        = list(database_flag)
         description = <<-END
-          List of database flags.
+          A list of database flags.
         END
 
         attribute "name" {
@@ -614,21 +616,21 @@ section {
           type        = map(string)
           default     = "30m"
           description = <<-END
-            - **`create`**: _(Optional)_ 
+            - **`create`**: _(Optional)_
 
-              Used for sql database instance creation. 
-
-              Default is `"30m"`.
-
-            - **`update`**: _(Optional)_ 
-
-              Used for sql database instance manipulation. 
+              Used for sql database instance creation.
 
               Default is `"30m"`.
 
-            - **`delete`**: _(Optional)_ 
+            - **`update`**: _(Optional)_
 
-              Used for sql database instance deletion.  
+              Used for sql database instance manipulation.
+
+              Default is `"30m"`.
+
+            - **`delete`**: _(Optional)_
+
+              Used for sql database instance deletion.
 
               Default is `"30m"`.
           END
@@ -638,21 +640,21 @@ section {
           type        = map(string)
           default     = "15m"
           description = <<-END
-            - **`create`**: _(Optional)_ 
+            - **`create`**: _(Optional)_
 
-              Used for sql database creation. 
+              Used for sql database creation.
 
               Default is `"15m"`.
 
-            - **`update`**: _(Optional)_ 
+            - **`update`**: _(Optional)_
 
-              Used for sql database manipulation. 
+              Used for sql database manipulation.
 
               Default is `"10m"`.
 
-            - **`delete`**: _(Optional)_ 
+            - **`delete`**: _(Optional)_
 
-              Used for sql database deletion.  
+              Used for sql database deletion.
 
               Default is `"10m"`.
           END
@@ -662,15 +664,15 @@ section {
           type        = map(string)
           default     = "10m"
           description = <<-END
-            - **`create`**: _(Optional)_ 
+            - **`create`**: _(Optional)_
 
-              Used for sql user creation. 
+              Used for sql user creation.
 
               Default is `"10m"`.
 
-            - **`delete`**: _(Optional)_ 
+            - **`delete`**: _(Optional)_
 
-              Used for sql user deletion.  
+              Used for sql user deletion.
 
               Default is `"10m"`.
           END
@@ -680,21 +682,21 @@ section {
           type        = map(string)
           default     = "10m"
           description = <<-END
-            - **`create`**: _(Optional)_ 
+            - **`create`**: _(Optional)_
 
-              Used for sql user creation. 
-
-              Default is `"10m"`.
-
-            - **`update`**: _(Optional)_ 
-
-              Used for sql user manipulation. 
+              Used for sql user creation.
 
               Default is `"10m"`.
 
-            - **`delete`**: _(Optional)_ 
+            - **`update`**: _(Optional)_
 
-              Used for sql user deletion.  
+              Used for sql user manipulation.
+
+              Default is `"10m"`.
+
+            - **`delete`**: _(Optional)_
+
+              Used for sql user deletion.
 
               Default is `"10m"`.
           END
@@ -708,7 +710,7 @@ section {
       variable "sql_databases" {
         type           = list(sql_database)
         description    = <<-END
-          List of sql databases.
+          A list of SQL databases.
         END
         readme_example = <<-END
           sql_databases = [{
@@ -749,7 +751,7 @@ section {
       variable "sql_ssl_certs" {
         type           = list(sql_ssl_cert)
         description    = <<-END
-          List of sql ssl certs.
+          List of SQL SSL certs. You can create up to 10 client certificates for each instance.
         END
         readme_example = <<-END
           sql_ssl_certs = [{
@@ -776,7 +778,7 @@ section {
       variable "sql_users" {
         type           = list(sql_user)
         description    = <<-END
-          List of sql users.
+          List of SQL users.
         END
         readme_example = <<-END
           sql_users = [{
@@ -879,7 +881,7 @@ section {
     section {
       title   = "Google Documentation"
       content = <<-END
-        - SQL Server on Google Cloud: https://cloud.google.com/sql-server
+        - Available database version on GCP (SQL Server is not supported by this module): https://cloud.google.com/sql/docs/db-versions
         - Configuring SSL/TLS certificates: https://cloud.google.com/sql/docs/mysql/configure-ssl-instance
       END
     }
