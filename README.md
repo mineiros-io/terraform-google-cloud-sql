@@ -13,6 +13,8 @@ A [Terraform] module for [Google Cloud Platform (GCP)][gcp].
 **_This module supports Terraform version 1
 and is compatible with the Terraform Google Provider version 4._**
 
+**NOTE: This module doesn't support SQL Server**
+
 This module is part of our Infrastructure as Code (IaC) framework
 that enables our users and customers to easily deploy and manage reusable,
 secure, and production-grade cloud infrastructure.
@@ -86,7 +88,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
 - [**`database_version`**](#var-database_version): *(**Required** `string`)*<a name="var-database_version"></a>
 
-  The MySQL, PostgreSQL or SQL Server (beta) version to use.
+  The MySQL or PostgreSQL version to use.
 
 - [**`tier`**](#var-tier): *(**Required** `string`)*<a name="var-tier"></a>
 
@@ -150,7 +152,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
 - [**`database_flags`**](#var-database_flags): *(Optional `list(database_flag)`)*<a name="var-database_flags"></a>
 
-  List of database flags.
+  A list of database flags.
 
   Each `database_flag` object in the list accepts the following attributes:
 
@@ -458,21 +460,21 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   - [**`google_sql_database_instance`**](#attr-module_timeouts-google_sql_database_instance): *(Optional `map(string)`)*<a name="attr-module_timeouts-google_sql_database_instance"></a>
 
-    - **`create`**: _(Optional)_ 
+    - **`create`**: _(Optional)_
 
-      Used for sql database instance creation. 
-
-      Default is `"30m"`.
-
-    - **`update`**: _(Optional)_ 
-
-      Used for sql database instance manipulation. 
+      Used for sql database instance creation.
 
       Default is `"30m"`.
 
-    - **`delete`**: _(Optional)_ 
+    - **`update`**: _(Optional)_
 
-      Used for sql database instance deletion.  
+      Used for sql database instance manipulation.
+
+      Default is `"30m"`.
+
+    - **`delete`**: _(Optional)_
+
+      Used for sql database instance deletion.
 
       Default is `"30m"`.
 
@@ -480,21 +482,21 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   - [**`google_sql_database`**](#attr-module_timeouts-google_sql_database): *(Optional `map(string)`)*<a name="attr-module_timeouts-google_sql_database"></a>
 
-    - **`create`**: _(Optional)_ 
+    - **`create`**: _(Optional)_
 
-      Used for sql database creation. 
+      Used for sql database creation.
 
       Default is `"15m"`.
 
-    - **`update`**: _(Optional)_ 
+    - **`update`**: _(Optional)_
 
-      Used for sql database manipulation. 
+      Used for sql database manipulation.
 
       Default is `"10m"`.
 
-    - **`delete`**: _(Optional)_ 
+    - **`delete`**: _(Optional)_
 
-      Used for sql database deletion.  
+      Used for sql database deletion.
 
       Default is `"10m"`.
 
@@ -502,15 +504,15 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   - [**`google_sql_ssl_cert`**](#attr-module_timeouts-google_sql_ssl_cert): *(Optional `map(string)`)*<a name="attr-module_timeouts-google_sql_ssl_cert"></a>
 
-    - **`create`**: _(Optional)_ 
+    - **`create`**: _(Optional)_
 
-      Used for sql user creation. 
+      Used for sql user creation.
 
       Default is `"10m"`.
 
-    - **`delete`**: _(Optional)_ 
+    - **`delete`**: _(Optional)_
 
-      Used for sql user deletion.  
+      Used for sql user deletion.
 
       Default is `"10m"`.
 
@@ -518,21 +520,21 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   - [**`google_sql_user`**](#attr-module_timeouts-google_sql_user): *(Optional `map(string)`)*<a name="attr-module_timeouts-google_sql_user"></a>
 
-    - **`create`**: _(Optional)_ 
+    - **`create`**: _(Optional)_
 
-      Used for sql user creation. 
-
-      Default is `"10m"`.
-
-    - **`update`**: _(Optional)_ 
-
-      Used for sql user manipulation. 
+      Used for sql user creation.
 
       Default is `"10m"`.
 
-    - **`delete`**: _(Optional)_ 
+    - **`update`**: _(Optional)_
 
-      Used for sql user deletion.  
+      Used for sql user manipulation.
+
+      Default is `"10m"`.
+
+    - **`delete`**: _(Optional)_
+
+      Used for sql user deletion.
 
       Default is `"10m"`.
 
@@ -542,7 +544,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
 - [**`sql_databases`**](#var-sql_databases): *(Optional `list(sql_database)`)*<a name="var-sql_databases"></a>
 
-  List of sql databases.
+  A list of SQL databases.
 
   Example:
 
@@ -572,7 +574,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
 - [**`sql_ssl_certs`**](#var-sql_ssl_certs): *(Optional `list(sql_ssl_cert)`)*<a name="var-sql_ssl_certs"></a>
 
-  List of sql ssl certs.
+  List of SQL SSL certs. You can create up to 10 client certificates for each instance.
 
   Example:
 
@@ -594,7 +596,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
 - [**`sql_users`**](#var-sql_users): *(Optional `list(sql_user)`)*<a name="var-sql_users"></a>
 
-  List of sql users.
+  List of SQL users.
 
   Example:
 
@@ -659,7 +661,7 @@ The following attributes are exported in the outputs of the module:
 
 ### Google Documentation
 
-- SQL Server on Google Cloud: https://cloud.google.com/sql-server
+- Available database version on GCP (SQL Server is not supported by this module): https://cloud.google.com/sql/docs/db-versions
 - Configuring SSL/TLS certificates: https://cloud.google.com/sql/docs/mysql/configure-ssl-instance
 
 ### Terraform Google Provider Documentation

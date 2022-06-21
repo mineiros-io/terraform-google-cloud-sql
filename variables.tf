@@ -4,8 +4,13 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 variable "database_version" {
-  description = "(Required) The MySQL, PostgreSQL or SQL Server (beta) version to use."
+  description = "(Required) The MySQL or PostgreSQL version to use."
   type        = string
+
+  validation {
+    condition     = can(regex("^(MYSQL|POSTGRES)_(\\d{1,2}_\\d{1,2}|\\d{1,2})$", var.database_version))
+    error_message = "The value must be starting with 'MYSQL_' or 'POSTGRES_' followed by a one or two digit version number separated with an underscore."
+  }
 }
 
 variable "tier" {
@@ -111,55 +116,55 @@ variable "user_labels" {
 }
 
 variable "database_flags" {
-  description = "(Optional) List of database flags."
+  description = "(Optional) A list of database flags."
   type        = any
   default     = []
 }
 
 variable "backup_configuration" {
-  description = "(Optional) List of backup configurations."
+  description = "(Optional) An object of backup configuration."
   type        = any
   default     = {}
 }
 
 variable "ip_configuration" {
-  description = "(Optional) List of ip configurations."
+  description = "(Optional) An object of ip configurations."
   type        = any
   default     = {}
 }
 
 variable "location_preference" {
-  description = "(Optional) A Map of location preferences."
+  description = "(Optional) An object of location preferences."
   type        = any
   default     = {}
 }
 
 variable "maintenance_window" {
-  description = "(Optional) A Map of maintenance window."
+  description = "(Optional) An object of maintenance window."
   type        = any
   default     = {}
 }
 
 variable "insights_config" {
-  description = "(Optional) A Map of insight config."
+  description = "(Optional) An object of insight config."
   type        = any
   default     = {}
 }
 
 variable "replica_configuration" {
-  description = " (Optional) A Map of replica configuration."
+  description = " (Optional) An object of replica configuration."
   type        = any
   default     = {}
 }
 
 variable "sql_databases" {
-  description = "(Optional) List of SQL Databases."
+  description = "(Optional) A list of SQL Databases."
   type        = any
   default     = []
 }
 
 variable "sql_ssl_certs" {
-  description = "(Optional) List of SQL SSL Certs. You can create up to 10 client certificates for each instance."
+  description = "(Optional) A list of SQL SSL Certs. You can create up to 10 client certificates for each instance."
   type        = any
   default     = []
 
@@ -170,7 +175,7 @@ variable "sql_ssl_certs" {
 }
 
 variable "sql_users" {
-  description = "(Optional) List of SQL users."
+  description = "(Optional) A list of SQL users."
   type        = any
   default     = []
 
