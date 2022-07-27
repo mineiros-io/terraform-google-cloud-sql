@@ -347,7 +347,7 @@ section {
         attribute "private_network" {
           type        = string
           description = <<-END
-            The VPC network from which the Cloud SQL instance is accessible for private IP. For example, `projects/myProject/global/networks/default`. Specifying a network enables private IP. At least `ipv4_enabled` must be enabled or a `private_network` must be configured. This setting can be updated, but it cannot be removed after it is set.
+            The VPC network from which the Cloud SQL instance is accessible for private IP. For example, `projects/myProject/global/networks/default`. Specifying a network enables private IP. At least `ipv4_enabled` must be enabled or a `private_network` must be configured. This setting can be updated, but it cannot be removed after it is set. This setting only works if the VPC network has a peering connection configured with `servicenetworking.googleapis.com`.
           END
         }
 
@@ -373,11 +373,11 @@ section {
         attribute "authorized_networks" {
           type           = list(authorized_network)
           description    = <<-END
-            A List of backup retention settings.
+            A List of public IPs/networks authorized to access the CloudSQL instance.
           END
           readme_example = <<-END
             authorized_networks = [{
-              value = "10.10.10.10/32"
+              value = "35.35.35.35/32"
             }]
           END
 
@@ -399,7 +399,7 @@ section {
             required    = true
             type        = string
             description = <<-END
-              A CIDR notation IPv4 or IPv6 address that is allowed to access this instance. Must be set even if other two attributes are not for the whitelist to become active.
+              A CIDR notation **public** IPv4 or IPv6 address that is allowed to access this instance. Must be set even if other two attributes are not for the whitelist to become active.
             END
           }
         }

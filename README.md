@@ -257,7 +257,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   - [**`private_network`**](#attr-ip_configuration-private_network): *(Optional `string`)*<a name="attr-ip_configuration-private_network"></a>
 
-    The VPC network from which the Cloud SQL instance is accessible for private IP. For example, `projects/myProject/global/networks/default`. Specifying a network enables private IP. At least `ipv4_enabled` must be enabled or a `private_network` must be configured. This setting can be updated, but it cannot be removed after it is set.
+    The VPC network from which the Cloud SQL instance is accessible for private IP. For example, `projects/myProject/global/networks/default`. Specifying a network enables private IP. At least `ipv4_enabled` must be enabled or a `private_network` must be configured. This setting can be updated, but it cannot be removed after it is set. This setting only works if the VPC network has a peering connection configured with `servicenetworking.googleapis.com`.
 
   - [**`require_ssl`**](#attr-ip_configuration-require_ssl): *(Optional `bool`)*<a name="attr-ip_configuration-require_ssl"></a>
 
@@ -274,13 +274,13 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   - [**`authorized_networks`**](#attr-ip_configuration-authorized_networks): *(Optional `list(authorized_network)`)*<a name="attr-ip_configuration-authorized_networks"></a>
 
-    A List of backup retention settings.
+    A List of public IPs/networks authorized to access the CloudSQL instance.
 
     Example:
 
     ```hcl
     authorized_networks = [{
-      value = "10.10.10.10/32"
+      value = "35.35.35.35/32"
     }]
     ```
 
@@ -296,7 +296,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     - [**`value`**](#attr-ip_configuration-authorized_networks-value): *(**Required** `string`)*<a name="attr-ip_configuration-authorized_networks-value"></a>
 
-      A CIDR notation IPv4 or IPv6 address that is allowed to access this instance. Must be set even if other two attributes are not for the whitelist to become active.
+      A CIDR notation **public** IPv4 or IPv6 address that is allowed to access this instance. Must be set even if other two attributes are not for the whitelist to become active.
 
 - [**`location_preference`**](#var-location_preference): *(Optional `object(location_preference)`)*<a name="var-location_preference"></a>
 
