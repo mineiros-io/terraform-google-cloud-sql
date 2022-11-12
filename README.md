@@ -568,10 +568,6 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     The collation value. Postgres databases only support a value of `en_US.UTF8` at creation time.
 
-  - [**`project`**](#attr-sql_databases-project): *(Optional `string`)*<a name="attr-sql_databases-project"></a>
-
-    The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
-
 - [**`sql_ssl_certs`**](#var-sql_ssl_certs): *(Optional `list(sql_ssl_cert)`)*<a name="var-sql_ssl_certs"></a>
 
   List of SQL SSL certs. You can create up to 10 client certificates for each instance.
@@ -589,10 +585,6 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`common_name`**](#attr-sql_ssl_certs-common_name): *(**Required** `string`)*<a name="attr-sql_ssl_certs-common_name"></a>
 
     The common name to be used in the certificate to identify the client. Constrained to [a-zA-Z.-_ ]+. Changing this forces a new resource to be created.
-
-  - [**`project`**](#attr-sql_ssl_certs-project): *(Optional `string`)*<a name="attr-sql_ssl_certs-project"></a>
-
-    The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
 
 - [**`sql_users`**](#var-sql_users): *(Optional `list(sql_user)`)*<a name="var-sql_users"></a>
 
@@ -628,10 +620,6 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`host`**](#attr-sql_users-host): *(Optional `string`)*<a name="attr-sql_users-host"></a>
 
     The host the user can connect from. This is only supported for MySQL instances. Don't set this field for PostgreSQL instances. Can be an IP address. Changing this forces a new resource to be created.
-
-  - [**`project`**](#attr-sql_users-project): *(Optional `string`)*<a name="attr-sql_users-project"></a>
-
-    The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
 
 ## Module Outputs
 

@@ -739,13 +739,6 @@ section {
             The collation value. Postgres databases only support a value of `en_US.UTF8` at creation time.
           END
         }
-
-        attribute "project" {
-          type        = string
-          description = <<-END
-            The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
-          END
-        }
       }
 
       variable "sql_ssl_certs" {
@@ -764,13 +757,6 @@ section {
           type        = string
           description = <<-END
             The common name to be used in the certificate to identify the client. Constrained to [a-zA-Z.-_ ]+. Changing this forces a new resource to be created.
-          END
-        }
-
-        attribute "project" {
-          type        = string
-          description = <<-END
-            The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
           END
         }
       }
@@ -820,13 +806,6 @@ section {
           type        = string
           description = <<-END
             The host the user can connect from. This is only supported for MySQL instances. Don't set this field for PostgreSQL instances. Can be an IP address. Changing this forces a new resource to be created.
-          END
-        }
-
-        attribute "project" {
-          type        = string
-          description = <<-END
-            The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
           END
         }
       }
