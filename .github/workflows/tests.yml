@@ -40,11 +40,16 @@ jobs:
           go-version: 1.17.6
 
       - name: Set up Terramate
-        # for security reasons we pin commit ids and not tags.
-        # mineiros-io/terramate@v0.1.1 -> bea6836fa912c982f39a2965a327476b15d06b45
-        run: go install github.com/mineiros-io/terramate/cmd/terramate@bea6836fa912c982f39a2965a327476b15d06b45
-        env:
-          GOPROXY: direct
+        uses: giantswarm/install-binary-action@e97402b0aa95939ddba5b36aa77f8abc58a37fd5
+        with:
+          binary: terramate
+          version: 0.1.41
+          # https://github.com/mineiros-io/terramate/releases/download/v${version}/terramate_${version}_${os}_${arch}.tar.gz
+          download_url: "https://github.com/mineiros-io/${binary}/releases/download/v${version}/terramate_${version}_linux_x86_64.tar.gz"
+          tarball_binary_path: "${binary}"
+
+      - name: Clean Up Terramate Install Artifacts
+        run: rm -rf terramate
 
       - name: Set up Terradoc
         # for security reasons we pin commit ids and not tags.
@@ -58,7 +63,7 @@ jobs:
         # hashicorp/setup-terraform@v2.0.0 -> 17d4c9b8043b238f6f35641cdd8433da1e6f3867
         uses: hashicorp/setup-terraform@17d4c9b8043b238f6f35641cdd8433da1e6f3867
         with:
-          terraform_version: 1.2.1
+          terraform_version: 1.3.0
           terraform_wrapper: false
 
       - name: Setup TFLint
@@ -66,7 +71,7 @@ jobs:
         # terraform-linters/setup-tflint@v2.0.0 -> 9e653e0f7de0839150e03280e0981e0c25eaf10a
         uses: terraform-linters/setup-tflint@9e653e0f7de0839150e03280e0981e0c25eaf10a
         with:
-          tflint_version: v0.29.0
+          tflint_version: v0.41.0
 
       - name: Setup and run pre-commit
         # for security reasons we pin commit ids and not tags.
