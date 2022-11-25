@@ -68,7 +68,7 @@ section {
 
       ```hcl
       module "terraform-google-cloud-sql" {
-        source = "github.com/mineiros-io/terraform-google-cloud-sql.git?ref=v0.0.5"
+        source = "github.com/mineiros-io/terraform-google-cloud-sql.git?ref=v0.1.0"
 
         tier             = "db-f1-micro"
         database_version = "MYSQL_5_6"
@@ -181,6 +181,14 @@ section {
         default     = true
         description = <<-END
           Configuration to increase storage size automatically.
+        END
+      }
+
+      variable "disk_autoresize_limit" {
+        type        = number
+        default     = 0
+        description = <<-END
+         The maximum size in GB to which storage capacity can be automatically increased. The default value is 0, which specifies that there is no limit.
         END
       }
 
