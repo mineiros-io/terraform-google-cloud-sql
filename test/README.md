@@ -1,4 +1,4 @@
-[<img src="https://raw.githubusercontent.com/mineiros-io/brand/3bffd30e8bdbbde32c143e2650b2faa55f1df3ea/mineiros-primary-logo.svg" width="400"/>][homepage]
+[<img src="https://raw.githubusercontent.com/mineiros-io/brand/f2042a229e8feb4b188bea0aec4f6f2ad900c82e/mineiros-primary-logo.svg" width="400"/>][homepage]
 
 [![license][badge-license]][apache20]
 [![Join Slack][badge-slack]][slack]
@@ -110,6 +110,6 @@ Alternatively, you can also run the tests without Docker.
 [go]: https://golang.org/
 [terraform]: https://www.terraform.io/downloads.html
 [badge-license]: https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg
-[badge-slack]: https://img.shields.io/badge/slack-@mineiros--community-f32752.svg?logo=slack
+[badge-slack]: https://img.shields.io/badge/slack-@mineiros--community-f43f5e.svg?logo=slack
 [apache20]: https://opensource.org/licenses/Apache-2.0
 [slack]: https://mineiros.io/slack

@@ -59,7 +59,7 @@ tests locally.
 At this point, make your code changes and constantly test again your new test case to make sure that everything working
 properly. Do [commit] early and often and make useful commit messages.
 
-If a backwards incompatible change cannot be avoided, please make sure to call that out when you submit a pull request,
+If a backward incompatible change cannot be avoided, please make sure to call that out when you submit a pull request,
 explaining why the change is absolutely necessary.
 
 ## Create a pull request
@@ -68,7 +68,7 @@ explaining why the change is absolutely necessary.
 Please make sure to include the following:
 
 1. A description of the change, including a link to your GitHub issue.
-1. Any notes on backwards incompatibility or downtime.
+1. Any notes on backward incompatibility or downtime.
 
 ## Merge and release
 
@@ -77,14 +77,14 @@ If everything looks good, they will merge the code and release a new version whi
 
 <!-- References -->
 
+[github flow]: https://docs.github.com/en/get-started/quickstart/github-flow
+[codeowners]: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+[fork]: https://docs.github.com/en/get-started/quickstart/fork-a-repo
+[commit]: https://docs.github.com/en/desktop/contributing-and-collaborating-using-github-desktop/making-changes-in-a-branch/committing-and-reviewing-changes-to-your-project
+[create a new branch]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-and-deleting-branches-within-your-repository
+[create a pull request]: https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request
 [pull requests]: https://github.com/mineiros-io/terraform-google-cloud-sql/pulls
 [pre-commit-file]: https://github.com/mineiros-io/terraform-google-cloud-sql/blob/main/.pre-commit-config.yaml
-[github flow]: https://guides.github.com/introduction/flow/
-[codeowners]: https://help.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
-[fork]: https://help.github.com/en/github/getting-started-with-github/fork-a-repo
-[create a new branch]: https://guides.github.com/introduction/flow/
 [readme driven development]: https://tom.preston-werner.com/2010/08/23/readme-driven-development.html
-[commit]: https://help.github.com/en/desktop/contributing-to-projects/committing-and-reviewing-changes-to-your-project
-[create a pull request]: https://help.github.com/articles/creating-a-pull-request/
 [semantic versioning (semver)]: https://semver.org/
 [test driven development]: https://en.wikipedia.org/wiki/Test-driven_development
