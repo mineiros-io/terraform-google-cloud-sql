@@ -184,6 +184,14 @@ section {
         END
       }
 
+      variable "disk_autoresize_limit" {
+        type        = number
+        default     = 0
+        description = <<-END
+         The maximum size in GB to which storage capacity can be automatically increased. The default value is 0, which specifies that there is no limit.
+        END
+      }
+
       variable "disk_size" {
         type        = number
         default     = 10

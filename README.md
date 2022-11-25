@@ -130,6 +130,12 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   Default is `true`.
 
+- [**`disk_autoresize_limit`**](#var-disk_autoresize_limit): *(Optional `number`)*<a name="var-disk_autoresize_limit"></a>
+
+  The maximum size in GB to which storage capacity can be automatically increased. The default value is 0, which specifies that there is no limit.
+
+  Default is `0`.
+
 - [**`disk_size`**](#var-disk_size): *(Optional `number`)*<a name="var-disk_size"></a>
 
   The size of data disk, in GB. Size of a running instance cannot be reduced but can be increased.

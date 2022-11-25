@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Added
 
+- Add `disk_autoresize_limit` to `google_sql_database_instance` resource
 - Validation added for `database_version` string input variable
 
 ## [0.0.5]

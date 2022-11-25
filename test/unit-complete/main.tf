@@ -6,17 +6,18 @@ module "test" {
   tier             = "db-n1-standard-1"
 
   # add all optional arguments that create additional/extended resources
-  name                 = "unit-complete-main-${local.random_suffix}"
-  region               = var.gcp_region
-  master_instance_name = "unit-complete-main-master-${local.random_suffix}"
-  project              = local.project_id
-  deletion_protection  = true
-  activation_policy    = "ALWAYS"
-  availability_type    = "REGIONAL"
-  disk_autoresize      = true
-  disk_size            = 10
-  disk_type            = "PD_SSD"
-  pricing_plan         = "PER_USE"
+  name                  = "unit-complete-main-${local.random_suffix}"
+  region                = var.gcp_region
+  master_instance_name  = "unit-complete-main-master-${local.random_suffix}"
+  project               = local.project_id
+  deletion_protection   = true
+  activation_policy     = "ALWAYS"
+  availability_type     = "REGIONAL"
+  disk_autoresize       = true
+  disk_autoresize_limit = 100
+  disk_size             = 10
+  disk_type             = "PD_SSD"
+  pricing_plan          = "PER_USE"
 
   user_labels = {
     "key1" = "value1"

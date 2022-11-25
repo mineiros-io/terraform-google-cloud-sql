@@ -81,6 +81,12 @@ variable "disk_autoresize" {
   default     = true
 }
 
+variable "disk_autoresize_limit" {
+  description = "(Optional) The maximum size in GB to which storage capacity can be automatically increased. The default value is 0, which specifies that there is no limit."
+  type        = number
+  default     = 0
+}
+
 variable "disk_size" {
   description = "(Optional) The size of data disk, in GB. Size of a running instance cannot be reduced but can be increased. If `disk_size` is set `var.disk_autoresize` will be disbaled as terraform can not handle both."
   type        = number
