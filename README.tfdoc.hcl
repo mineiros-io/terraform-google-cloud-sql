@@ -827,7 +827,7 @@ section {
     END
 
     output "module_enabled" {
-      type        = object(instance)
+      type        = bool
       description = <<-END
         Whether this module is enabled.
       END
