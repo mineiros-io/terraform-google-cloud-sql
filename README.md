@@ -631,7 +631,7 @@ See [variables.tf] and [examples/] for details and use-cases.
 
 The following attributes are exported in the outputs of the module:
 
-- [**`module_enabled`**](#output-module_enabled): *(`object(instance)`)*<a name="output-module_enabled"></a>
+- [**`module_enabled`**](#output-module_enabled): *(`bool`)*<a name="output-module_enabled"></a>
 
   Whether this module is enabled.
 
