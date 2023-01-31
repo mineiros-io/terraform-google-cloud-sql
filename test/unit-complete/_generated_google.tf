@@ -1,5 +1,4 @@
 // TERRAMATE: GENERATED AUTOMATICALLY DO NOT EDIT
-// TERRAMATE: originated from generate_hcl block on /test/terramate_google.tm.hcl
 
 variable "gcp_project" {
   default     = null
