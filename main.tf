@@ -20,9 +20,10 @@ resource "google_sql_database_instance" "instance" {
   deletion_protection  = var.deletion_protection
 
   settings {
-    tier              = var.tier
-    activation_policy = var.activation_policy
-    availability_type = var.availability_type
+    tier                        = var.tier
+    activation_policy           = var.activation_policy
+    availability_type           = var.availability_type
+    deletion_protection_enabled = var.deletion_protection_enabled
 
     # disable disk_autoresize if the user requested a specific disk_size
     disk_autoresize       = var.disk_size != null ? false : var.disk_autoresize

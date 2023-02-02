@@ -116,6 +116,12 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   Default is `true`.
 
+- [**`deletion_protection_enabled`**](#var-deletion_protection_enabled): *(Optional `bool`)*<a name="var-deletion_protection_enabled"></a>
+
+  Enables protection of an instance from accidental deletion protection across all surfaces (API, gcloud, Cloud Console and Terraform).
+
+  Default is `false`.
+
 - [**`activation_policy`**](#var-activation_policy): *(Optional `string`)*<a name="var-activation_policy"></a>
 
   This specifies when the instance should be active. Can be either `ALWAYS`, `NEVER` or `ON_DEMAND`.

@@ -53,6 +53,12 @@ variable "deletion_protection" {
   default     = true
 }
 
+variable "deletion_protection_enabled" {
+  description = "(Optional) Enables protection of an instance from accidental deletion protection across all surfaces (API, gcloud, Cloud Console and Terraform)."
+  type        = bool
+  default     = false
+}
+
 variable "activation_policy" {
   description = "(Optional) This specifies when the instance should be active. Can be either ALWAYS, NEVER or ON_DEMAND."
   type        = string
