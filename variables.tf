@@ -18,6 +18,13 @@ variable "tier" {
   type        = string
 }
 
+variable "project" {
+  description = "(Required) The ID of the project in which the resource belongs. If it is not provided, the provider project is used."
+  type        = string
+  default     = null
+}
+
+
 # ---------------------------------------------------------------------------------------------------------------------
 # OPTIONAL VARIABLES
 # These variables have defaults, but may be overridden.
@@ -41,16 +48,22 @@ variable "master_instance_name" {
   default     = null
 }
 
-variable "project" {
-  description = "(Optional) The ID of the project in which the resource belongs. If it is not provided, the provider project is used."
-  type        = string
-  default     = null
-}
-
 variable "deletion_protection" {
   description = "(Optional) Whether or not to allow Terraform to destroy the instance."
   type        = bool
   default     = true
+}
+
+variable "deletion_protection_enabled" {
+  description = "(Optional) Enables deletion protection of an instance at the GCP level."
+  type        = bool
+  default     = false
+}
+
+variable "encryption_key_name" {
+  description = "(Optional) The full path to the encryption key used for the CMEK disk encryption."
+  type        = string
+  default     = null
 }
 
 variable "activation_policy" {
@@ -151,8 +164,26 @@ variable "maintenance_window" {
   default     = {}
 }
 
+variable "deny_maintenance_period" {
+  description = "(Optional) An object of deny maintenance window."
+  type        = any
+  default     = {}
+}
+
 variable "insights_config" {
   description = "(Optional) An object of insight config."
+  type        = any
+  default     = {}
+}
+
+variable "password_validation_policy" {
+  description = "(Optional) An object of password_validation_policy config."
+  type        = any
+  default     = {}
+}
+
+variable "data_cache_config" {
+  description = "(Optional) An object if data cache config."
   type        = any
   default     = {}
 }

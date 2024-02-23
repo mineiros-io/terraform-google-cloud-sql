@@ -51,4 +51,3 @@ vendor
 crash.log
 
 .terraform.lock.hcl
-.tool-versions

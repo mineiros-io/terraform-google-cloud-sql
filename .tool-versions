@@ -1,0 +1,4 @@
+terraform 1.5.7
+terramate 0.4.5
+tflint 0.50.2
+pre-commit 3.6.1
