@@ -6,18 +6,20 @@ module "test" {
   tier             = "db-n1-standard-1"
 
   # add all optional arguments that create additional/extended resources
-  name                  = "unit-complete-main-${local.random_suffix}"
-  region                = var.gcp_region
-  master_instance_name  = "unit-complete-main-master-${local.random_suffix}"
-  project               = local.project_id
-  deletion_protection   = true
-  activation_policy     = "ALWAYS"
-  availability_type     = "REGIONAL"
-  disk_autoresize       = true
-  disk_autoresize_limit = 100
-  disk_size             = 10
-  disk_type             = "PD_SSD"
-  pricing_plan          = "PER_USE"
+  name                        = "unit-complete-main-${local.random_suffix}"
+  region                      = var.gcp_region
+  master_instance_name        = "unit-complete-main-master-${local.random_suffix}"
+  project                     = local.project_id
+  deletion_protection         = true
+  deletion_protection_enabled = true
+  activation_policy           = "ALWAYS"
+  availability_type           = "REGIONAL"
+  disk_autoresize             = true
+  disk_autoresize_limit       = 100
+  disk_size                   = 10
+  disk_type                   = "PD_SSD"
+  pricing_plan                = "PER_USE"
+  # encryption_key_name = "encryption_key_path"
 
   user_labels = {
     "key1" = "value1"
@@ -28,6 +30,19 @@ module "test" {
     name  = "long_query_time"
     value = "1"
   }]
+
+  data_cache_config = {
+    data_cache_enabled = true
+  }
+
+  password_validation_policy = {
+    min_length                  = 15
+    complexity                  = "COMPLEXITY_DEFAULT"
+    reuse_interval              = 10
+    disallow_username_substring = true
+    password_change_interval    = "10d"
+    enable_password_policy      = true
+  }
 
   backup_configuration = {
     binary_log_enabled     = true
@@ -64,6 +79,12 @@ module "test" {
     day          = 1
     hour         = 0
     update_track = "stable"
+  }
+
+  deny_maintenance_period = {
+    start_date = "2020-11-01",
+    end_date   = "2020-11-01",
+    time       = "00:00:00",
   }
 
   insights_config = {

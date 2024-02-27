@@ -1,0 +1,116 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: terraform-google-cloud-sql
+  cancel-in-progress: false
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    name: Static Analysis
+    steps:
+      - name: Checkout
+        # actions/checkout@v4.1.1
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          fetch-depth: 0
+
+      - name: Setup asdf
+        # asdf-vm/actions/plugins-add@v3.0.2
+        uses: asdf-vm/actions/plugins-add@05e0d2ed97b598bfce82fd30daf324ae0c4570e6
+
+      - name: Install tools via asdf
+        run: asdf install
+
+      - name: Set up Golang
+        # actions/setup-go@v5.0.0
+        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+        with:
+          go-version: 1.22.0
+
+      - name: Set up Terradoc
+        # for security reasons we pin commit ids and not tags.
+        # mineiros-io/terradoc@main -> af1a7b3ae3635958adf5ee2f40e0c3e70fd0803a
+        run: go install github.com/mineiros-io/terradoc/cmd/terradoc@af1a7b3ae3635958adf5ee2f40e0c3e70fd0803a
+        env:
+          GOPROXY: direct
+
+      - name: Cache plugin dir
+        # for security reasons we pin commit ids and not tags.
+        # actions/cache@v4.0.0 -> 13aacd865c20de90d75de3b17ebe84f7a17d57d2
+        uses: actions/cache@13aacd865c20de90d75de3b17ebe84f7a17d57d2
+        with:
+          path: ~/.tflint.d/plugins
+          key: tflint-${{ hashFiles('.tflint.hcl') }}
+
+      - name: Init TFLint
+        run: tflint --init
+        env:
+          # https://github.com/terraform-linters/tflint/blob/master/docs/user-guide/plugins.md#avoiding-rate-limiting
+          GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Setup and run pre-commit
+        # for security reasons we pin commit ids and not tags.
+        # pre-commit/action@v3.0.1 -> 2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd
+        uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd
+
+  unit-tests:
+    # needs: pre-commit
+    runs-on: ubuntu-latest
+    name: Unit Tests
+    steps:
+      - name: Checkout
+        # actions/checkout@v4.1.1
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          fetch-depth: 0
+
+      - name: Setup asdf
+        # asdf-vm/actions/plugins-add@v3.0.2
+        uses: asdf-vm/actions/plugins-add@05e0d2ed97b598bfce82fd30daf324ae0c4570e6
+
+      - name: Install tools via asdf
+        run: asdf install
+
+      - name: Set up Golang
+        # actions/setup-go@v5.0.0
+        uses: actions/setup-go@0c52d547c9bc32b1aa3301fd7a9cb496313a4491
+        with:
+          go-version: 1.22.0
+
+      - name: Run Unit Tests
+        run: make test/unit-tests
+        env:
+          GOOGLE_CREDENTIALS: ${{ secrets.MINEIROS_TESTING_GCP_SA_KEY_FILE }}
+          TEST_GCP_PROJECT: ${{ secrets.MINEIROS_TESTING_GCP_PROJECT }}
+          TEST_GCP_ORG_DOMAIN: ${{ secrets.MINEIROS_TESTING_GCP_ORG_DOMAIN }}
+
+  release:
+    needs:
+      - pre-commit
+      - unit-tests
+    permissions:
+      contents: write
+      issues: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        # actions/checkout@v4.1.1
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11
+        with:
+          fetch-depth: 0
+
+      - name: Semantic Release
+        # codfish/semantic-release-action@v3.1.0
+        uses: codfish/semantic-release-action@07170c8b1613177f0f3aa4d2224e2e0933cd732c
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          plugins: |
+            ['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/github']

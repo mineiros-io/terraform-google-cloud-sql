@@ -1,10 +1,13 @@
 locals {
-  backup_configuration  = length(var.backup_configuration) > 0 ? [var.backup_configuration] : []
-  ip_configuration      = length(var.ip_configuration) > 0 ? [var.ip_configuration] : []
-  location_preference   = length(var.location_preference) > 0 ? [var.location_preference] : []
-  maintenance_window    = length(var.maintenance_window) > 0 ? [var.maintenance_window] : []
-  insights_config       = length(var.insights_config) > 0 ? [var.insights_config] : []
-  replica_configuration = var.master_instance_name != null && length(var.replica_configuration) > 0 ? [var.replica_configuration] : []
+  backup_configuration       = length(var.backup_configuration) > 0 ? [var.backup_configuration] : []
+  ip_configuration           = length(var.ip_configuration) > 0 ? [var.ip_configuration] : []
+  location_preference        = length(var.location_preference) > 0 ? [var.location_preference] : []
+  maintenance_window         = length(var.maintenance_window) > 0 ? [var.maintenance_window] : []
+  deny_maintenance_period    = length(var.deny_maintenance_period) > 0 ? [var.deny_maintenance_period] : []
+  insights_config            = length(var.insights_config) > 0 ? [var.insights_config] : []
+  password_validation_policy = length(var.password_validation_policy) > 0 ? [var.password_validation_policy] : []
+  replica_configuration      = var.master_instance_name != null && length(var.replica_configuration) > 0 ? [var.replica_configuration] : []
+  data_cache_config          = length(var.data_cache_config) > 0 ? [var.data_cache_config] : []
 }
 
 resource "google_sql_database_instance" "instance" {
@@ -18,11 +21,13 @@ resource "google_sql_database_instance" "instance" {
   master_instance_name = var.master_instance_name
   project              = var.project
   deletion_protection  = var.deletion_protection
+  encryption_key_name  = var.encryption_key_name
 
   settings {
-    tier              = var.tier
-    activation_policy = var.activation_policy
-    availability_type = var.availability_type
+    tier                        = var.tier
+    activation_policy           = var.activation_policy
+    availability_type           = var.availability_type
+    deletion_protection_enabled = var.deletion_protection_enabled
 
     # disable disk_autoresize if the user requested a specific disk_size
     disk_autoresize       = var.disk_size != null ? false : var.disk_autoresize
@@ -31,6 +36,14 @@ resource "google_sql_database_instance" "instance" {
     disk_type             = var.disk_type
     pricing_plan          = var.pricing_plan
     user_labels           = var.user_labels
+
+    dynamic "data_cache_config" {
+      for_each = local.data_cache_config
+
+      content {
+        data_cache_enabled = try(data_cache_config.value.data_cache_enabled, false)
+      }
+    }
 
     dynamic "database_flags" {
       for_each = var.database_flags
@@ -67,10 +80,11 @@ resource "google_sql_database_instance" "instance" {
       for_each = local.ip_configuration
 
       content {
-        ipv4_enabled       = try(ip_configuration.value.ipv4_enabled, null)
-        private_network    = try(ip_configuration.value.private_network, null)
-        require_ssl        = try(ip_configuration.value.require_ssl, null)
-        allocated_ip_range = try(ip_configuration.value.allocated_ip_range, null)
+        ipv4_enabled                                  = try(ip_configuration.value.ipv4_enabled, null)
+        private_network                               = try(ip_configuration.value.private_network, null)
+        require_ssl                                   = try(ip_configuration.value.require_ssl, null)
+        allocated_ip_range                            = try(ip_configuration.value.allocated_ip_range, null)
+        enable_private_path_for_google_cloud_services = try(ip_configuration.value.enable_private_path_for_google_cloud_services, null)
 
         dynamic "authorized_networks" {
           for_each = try(ip_configuration.value.authorized_networks, [])
@@ -79,6 +93,15 @@ resource "google_sql_database_instance" "instance" {
             expiration_time = try(authorized_networks.value.expiration_time, null)
             name            = try(authorized_networks.value.name, null)
             value           = try(authorized_networks.value.value, null)
+          }
+        }
+
+        dynamic "psc_config" {
+          for_each = try(ip_configuration.value.psc_config, [])
+
+          content {
+            psc_enabled               = try(psc_config.value.psc_enabled, false)
+            allowed_consumer_projects = try(psc_config.value.allowed_consumer_projects, [])
           }
         }
       }
@@ -102,6 +125,16 @@ resource "google_sql_database_instance" "instance" {
       }
     }
 
+    dynamic "deny_maintenance_period" {
+      for_each = local.deny_maintenance_period
+
+      content {
+        start_date = try(deny_maintenance_period.value.start_date, null)
+        end_date   = try(deny_maintenance_period.value.end_date, null)
+        time       = try(deny_maintenance_period.value.time, null)
+      }
+    }
+
     dynamic "insights_config" {
       for_each = local.insights_config
 
@@ -110,6 +143,19 @@ resource "google_sql_database_instance" "instance" {
         query_string_length     = try(insights_config.value.query_string_length, null)
         record_application_tags = try(insights_config.value.record_application_tags, null)
         record_client_address   = try(insights_config.value.record_client_address, null)
+      }
+    }
+
+    dynamic "password_validation_policy" {
+      for_each = local.password_validation_policy
+
+      content {
+        min_length                  = try(password_validation_policy.value.min_length, null)
+        complexity                  = try(password_validation_policy.value.complexity, null)
+        reuse_interval              = try(password_validation_policy.value.reuse_interval, null)
+        disallow_username_substring = try(password_validation_policy.value.disallow_username_substring, null)
+        password_change_interval    = try(password_validation_policy.value.password_change_interval, null)
+        enable_password_policy      = try(password_validation_policy.value.enable_password_policy, null)
       }
     }
   }
@@ -148,10 +194,11 @@ resource "google_sql_database" "database" {
 
   project = var.project
 
-  instance  = google_sql_database_instance.instance[0].name
-  name      = each.value.name
-  charset   = try(each.value.charset, null)
-  collation = try(each.value.collation, null)
+  instance        = google_sql_database_instance.instance[0].name
+  name            = each.value.name
+  charset         = try(each.value.charset, null)
+  collation       = try(each.value.collation, null)
+  deletion_policy = try(each.value.deletion_policy, "DELETE")
 
   timeouts {
     create = try(var.module_timeouts.google_sql_database.create, "15m")

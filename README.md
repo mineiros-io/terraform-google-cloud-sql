@@ -11,7 +11,7 @@
 A [Terraform] module for [Google Cloud Platform (GCP)][gcp].
 
 **_This module supports Terraform version 1
-and is compatible with the Terraform Google Provider version 4._**
+and is compatible with the Terraform Google Provider version 4._** and 5._**
 
 **NOTE: This module doesn't support SQL Server**
 
@@ -94,6 +94,10 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   The machine type to use.
 
+- [**`project`**](#var-project): *(**Required** `string`)*<a name="var-project"></a>
+
+  The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
+
 - [**`name`**](#var-name): *(Optional `string`)*<a name="var-name"></a>
 
   The name of the instance. If the name is left blank, Terraform will randomly generate one when the instance is first created. This is done because after a name is used, it cannot be reused for up to one week.
@@ -106,15 +110,27 @@ See [variables.tf] and [examples/] for details and use-cases.
 
   The name of the existing instance that will act as the master in the replication setup. Note, this requires the master to have `binary_log_enabled` set, as well as existing backups.
 
-- [**`project`**](#var-project): *(Optional `string`)*<a name="var-project"></a>
-
-  The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
-
 - [**`deletion_protection`**](#var-deletion_protection): *(Optional `bool`)*<a name="var-deletion_protection"></a>
 
   Whether or not to allow Terraform to destroy the instance.
 
   Default is `true`.
+
+- [**`deletion_protection_enabled`**](#var-deletion_protection_enabled): *(Optional `bool`)*<a name="var-deletion_protection_enabled"></a>
+
+  Enables deletion protection of an instance at the GCP level.
+
+  Default is `false`.
+
+- [**`encryption_key_name`**](#var-encryption_key_name): *(Optional `string`)*<a name="var-encryption_key_name"></a>
+
+  The full path to the encryption key used for the CMEK disk encryption.
+
+  Default is `null`.
+
+- [**`activation_policy`**](#var-activation_policy): *(Optional `string`)*<a name="var-activation_policy"></a>
+
+  This specifies when the instance should be active. Can be either `ALWAYS`, `NEVER` or `ON_DEMAND`.
 
 - [**`activation_policy`**](#var-activation_policy): *(Optional `string`)*<a name="var-activation_policy"></a>
 
@@ -304,6 +320,27 @@ See [variables.tf] and [examples/] for details and use-cases.
 
       A CIDR notation **public** IPv4 or IPv6 address that is allowed to access this instance. Must be set even if other two attributes are not for the whitelist to become active.
 
+  - [**`psc_config`**](#attr-ip_configuration-psc_config): *(Optional `list(psc_config)`)*<a name="attr-ip_configuration-psc_config"></a>
+
+    Settings for Private Service Connect.
+
+    Example:
+
+    ```hcl
+    psc_enabled = true
+    allowed_consumer_projects = ["test123"]
+    ```
+
+    Each `psc_config` object in the list accepts the following attributes:
+
+    - [**`psc_enabled`**](#attr-ip_configuration-psc_config-psc_enabled): *(Optional `bool`)*<a name="attr-ip_configuration-psc_config-psc_enabled"></a>
+
+      Whether PSC connectivity is enabled for this instance.
+
+    - [**`allowed_consumer_projects`**](#attr-ip_configuration-psc_config-allowed_consumer_projects): *(Optional `list(string)`)*<a name="attr-ip_configuration-psc_config-allowed_consumer_projects"></a>
+
+      List of consumer projects that are allow-listed for PSC connections to this instance.
+
 - [**`location_preference`**](#var-location_preference): *(Optional `object(location_preference)`)*<a name="var-location_preference"></a>
 
   An object of location preferences.
@@ -354,6 +391,38 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     Receive updates earlier `canary` or later `stable`.
 
+- [**`deny_maintenance_period`**](#var-deny_maintenance_period): *(Optional `object(deny_maintenance_period)`)*<a name="var-deny_maintenance_period"></a>
+
+  An object of maintenance window.
+
+  Example:
+
+  ```hcl
+  deny_maintenance_period = {
+    start_date          = "2020-11-01"
+    end_date            = "2020-11-01"
+    time                = "00:00:00"
+  }
+  ```
+
+  The `deny_maintenance_period` object accepts the following attributes:
+
+  - [**`start_date`**](#attr-deny_maintenance_period-start_date): *(Optional `string`)*<a name="attr-deny_maintenance_period-start_date"></a>
+
+    (Required) "deny maintenance period" start date. 
+    If the year of the start date is empty, the year of the end date also must be empty. 
+    In this case, it means the deny maintenance period recurs every year.
+
+  - [**`end_date`**](#attr-deny_maintenance_period-end_date): *(Optional `string`)*<a name="attr-deny_maintenance_period-end_date"></a>
+
+    (Required) "deny maintenance period" end date. 
+    If the year of the end date is empty, the year of the start date also must be empty. 
+    In this case, it means the no maintenance interval recurs every year.
+
+  - [**`time`**](#attr-deny_maintenance_period-time): *(Optional `string`)*<a name="attr-deny_maintenance_period-time"></a>
+
+    (Required) Time in UTC when the "deny maintenance period" starts on startDate and ends on endDate.
+
 - [**`insights_config`**](#var-insights_config): *(Optional `object(insights_config)`)*<a name="var-insights_config"></a>
 
   An object of insight config.
@@ -385,6 +454,67 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`record_client_address`**](#attr-insights_config-record_client_address): *(Optional `bool`)*<a name="attr-insights_config-record_client_address"></a>
 
     True if Query Insights will record client address when enabled.
+
+- [**`password_validation_policy`**](#var-password_validation_policy): *(Optional `object(password_validation_policy)`)*<a name="var-password_validation_policy"></a>
+
+  An object of password_validation_policy config.
+
+  Example:
+
+  ```hcl
+  password_validation_policy = {
+    min_length                  = 15
+    complexity                  = "COMPLEXITY_DEFAULT"
+    reuse_interval              = 10
+    disallow_username_substring = true
+    password_change_interval    = "10d"
+    enable_password_policy      = true
+  }
+  ```
+
+  The `password_validation_policy` object accepts the following attributes:
+
+  - [**`min_length`**](#attr-password_validation_policy-min_length): *(Optional `number`)*<a name="attr-password_validation_policy-min_length"></a>
+
+    Specifies the minimum number of characters that the password must have.
+
+  - [**`complexity`**](#attr-password_validation_policy-complexity): *(Optional `string`)*<a name="attr-password_validation_policy-complexity"></a>
+
+    Checks if the password is a combination of lowercase, uppercase, numeric, and non-alphanumeric characters.
+
+  - [**`reuse_interval`**](#attr-password_validation_policy-reuse_interval): *(Optional `number`)*<a name="attr-password_validation_policy-reuse_interval"></a>
+
+    Specifies the number of previous passwords that you can't reuse.
+
+  - [**`disallow_username_substring`**](#attr-password_validation_policy-disallow_username_substring): *(Optional `bool`)*<a name="attr-password_validation_policy-disallow_username_substring"></a>
+
+    Prevents the use of the username in the password.
+
+  - [**`password_change_interval`**](#attr-password_validation_policy-password_change_interval): *(Optional `string`)*<a name="attr-password_validation_policy-password_change_interval"></a>
+
+    Specifies the minimum duration after which you can change the password.
+
+  - [**`enable_password_policy`**](#attr-password_validation_policy-enable_password_policy): *(Optional `bool`)*<a name="attr-password_validation_policy-enable_password_policy"></a>
+
+    Enables or disable the password validation policy.
+
+- [**`data_cache_config`**](#var-data_cache_config): *(Optional `object(advanced_machine_features)`)*<a name="var-data_cache_config"></a>
+
+  An object if data cache config.
+
+  Example:
+
+  ```hcl
+  data_cache_config = {
+    data_cache_enabled = true
+  }
+  ```
+
+  The `advanced_machine_features` object accepts the following attributes:
+
+  - [**`data_cache_enabled`**](#attr-data_cache_config-data_cache_enabled): *(Optional `bool`)*<a name="attr-data_cache_config-data_cache_enabled"></a>
+
+    Whether data cache is enabled for the instance (MYSQL,PostgreSQL).
 
 - [**`replica_configuration`**](#var-replica_configuration): *(Optional `object(replica_configuration)`)*<a name="var-replica_configuration"></a>
 
@@ -573,6 +703,11 @@ See [variables.tf] and [examples/] for details and use-cases.
   - [**`collation`**](#attr-sql_databases-collation): *(Optional `string`)*<a name="attr-sql_databases-collation"></a>
 
     The collation value. Postgres databases only support a value of `en_US.UTF8` at creation time.
+
+  - [**`deletion_policy`**](#attr-sql_databases-deletion_policy): *(Optional `string`)*<a name="attr-sql_databases-deletion_policy"></a>
+
+    (Optional) The deletion policy for the database. 
+    Possible values are: "ABANDON", "DELETE". Defaults to "DELETE".
 
 - [**`sql_ssl_certs`**](#var-sql_ssl_certs): *(Optional `list(sql_ssl_cert)`)*<a name="var-sql_ssl_certs"></a>
 

@@ -40,7 +40,7 @@ section {
     A [Terraform] module for [Google Cloud Platform (GCP)][gcp].
 
     **_This module supports Terraform version 1
-    and is compatible with the Terraform Google Provider version 4._**
+    and is compatible with the Terraform Google Provider version 4._** and 5._**
 
     **NOTE: This module doesn't support SQL Server**
 
@@ -126,6 +126,14 @@ section {
         END
       }
 
+      variable "project" {
+        required    = true
+        type        = string
+        description = <<-END
+          The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
+        END
+      }
+
       variable "name" {
         type        = string
         description = <<-END
@@ -147,18 +155,34 @@ section {
         END
       }
 
-      variable "project" {
-        type        = string
-        description = <<-END
-          The ID of the project in which the resource belongs. If it is not provided, the provider project is used.
-        END
-      }
-
       variable "deletion_protection" {
         type        = bool
         default     = true
         description = <<-END
           Whether or not to allow Terraform to destroy the instance.
+        END
+      }
+
+      variable "deletion_protection_enabled" {
+        type        = bool
+        default     = false
+        description = <<-END
+          Enables deletion protection of an instance at the GCP level.
+        END
+      }
+
+      variable "encryption_key_name" {
+        type        = string
+        default     = null
+        description = <<-END
+          The full path to the encryption key used for the CMEK disk encryption.
+        END
+      }
+
+      variable "activation_policy" {
+        type        = string
+        description = <<-END
+          This specifies when the instance should be active. Can be either `ALWAYS`, `NEVER` or `ON_DEMAND`.
         END
       }
 
@@ -365,7 +389,6 @@ section {
             Whether SSL connections over IP are enforced or not.
           END
         }
-
         attribute "allocated_ip_range " {
           type        = string
           description = <<-END
@@ -408,6 +431,31 @@ section {
             type        = string
             description = <<-END
               A CIDR notation **public** IPv4 or IPv6 address that is allowed to access this instance. Must be set even if other two attributes are not for the whitelist to become active.
+            END
+          }
+        }
+
+        attribute "psc_config" {
+          type           = list(psc_config)
+          description    = <<-END
+            Settings for Private Service Connect.
+          END
+          readme_example = <<-END
+            psc_enabled = true
+            allowed_consumer_projects = ["test123"]
+          END
+
+          attribute "psc_enabled" {
+            type        = bool
+            description = <<-END
+              Whether PSC connectivity is enabled for this instance.
+            END
+          }
+
+          attribute "allowed_consumer_projects" {
+            type        = list(string)
+            description = <<-END
+              List of consumer projects that are allow-listed for PSC connections to this instance.
             END
           }
         }
@@ -474,6 +522,45 @@ section {
         }
       }
 
+      variable "deny_maintenance_period" {
+        type           = object(deny_maintenance_period)
+        description    = <<-END
+          An object of maintenance window.
+        END
+        readme_example = <<-END
+          deny_maintenance_period = {
+            start_date          = "2020-11-01"
+            end_date            = "2020-11-01"
+            time                = "00:00:00"
+          }
+        END
+
+        attribute "start_date" {
+          type        = string
+          description = <<-END
+            (Required) "deny maintenance period" start date. 
+            If the year of the start date is empty, the year of the end date also must be empty. 
+            In this case, it means the deny maintenance period recurs every year.
+          END
+        }
+
+        attribute "end_date" {
+          type        = string
+          description = <<-END
+            (Required) "deny maintenance period" end date. 
+            If the year of the end date is empty, the year of the start date also must be empty. 
+            In this case, it means the no maintenance interval recurs every year.
+          END
+        }
+
+        attribute "time" {
+          type        = string
+          description = <<-END
+            (Required) Time in UTC when the "deny maintenance period" starts on startDate and ends on endDate.
+          END
+        }
+      }
+
       variable "insights_config" {
         type           = object(insights_config)
         description    = <<-END
@@ -511,6 +598,84 @@ section {
           type        = bool
           description = <<-END
             True if Query Insights will record client address when enabled.
+          END
+        }
+      }
+
+      variable "password_validation_policy" {
+        type           = object(password_validation_policy)
+        description    = <<-END
+          An object of password_validation_policy config.
+        END
+        readme_example = <<-END
+          password_validation_policy = {
+            min_length                  = 15
+            complexity                  = "COMPLEXITY_DEFAULT"
+            reuse_interval              = 10
+            disallow_username_substring = true
+            password_change_interval    = "10d"
+            enable_password_policy      = true
+          }
+        END
+
+        attribute "min_length" {
+          type        = number
+          description = <<-END
+            Specifies the minimum number of characters that the password must have.
+          END
+        }
+
+        attribute "complexity" {
+          type        = string
+          description = <<-END
+            Checks if the password is a combination of lowercase, uppercase, numeric, and non-alphanumeric characters.
+          END
+        }
+
+        attribute "reuse_interval" {
+          type        = number
+          description = <<-END
+            Specifies the number of previous passwords that you can't reuse.
+          END
+        }
+
+        attribute "disallow_username_substring" {
+          type        = bool
+          description = <<-END
+            Prevents the use of the username in the password.
+          END
+        }
+
+        attribute "password_change_interval" {
+          type        = string
+          description = <<-END
+            Specifies the minimum duration after which you can change the password.
+          END
+        }
+
+        attribute "enable_password_policy" {
+          type        = bool
+          description = <<-END
+            Enables or disable the password validation policy.
+          END
+        }
+      }
+
+      variable "data_cache_config" {
+        type           = object(advanced_machine_features)
+        description    = <<-END
+          An object if data cache config.
+        END
+        readme_example = <<-END
+          data_cache_config = {
+            data_cache_enabled = true
+          }
+        END
+
+        attribute "data_cache_enabled" {
+          type        = bool
+          description = <<-END
+            Whether data cache is enabled for the instance (MYSQL,PostgreSQL).
           END
         }
       }
@@ -745,6 +910,14 @@ section {
           type        = string
           description = <<-END
             The collation value. Postgres databases only support a value of `en_US.UTF8` at creation time.
+          END
+        }
+
+        attribute "deletion_policy" {
+          type        = string
+          description = <<-END
+            (Optional) The deletion policy for the database. 
+            Possible values are: "ABANDON", "DELETE". Defaults to "DELETE".
           END
         }
       }

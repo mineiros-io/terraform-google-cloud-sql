@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/mineiros-io/pre-commit-hooks
-    rev: v0.4.1
+    rev: v0.5.1
     hooks:
       - id: phony-targets
       - id: terradoc-validate
@@ -11,3 +11,8 @@ repos:
       - id: terraform-validate
         exclude: ^examples|.terraform/
       - id: tflint
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.29.0
+    hooks:
+      - id: yamllint
+        args: ['-s']
