@@ -285,6 +285,12 @@ See [variables.tf] and [examples/] for details and use-cases.
 
     Whether SSL connections over IP are enforced or not.
 
+  - [**`ssl_mode`**](#attr-ip_configuration-ssl_mode): *(Optional `string`)*<a name="attr-ip_configuration-ssl_mode"></a>
+
+    Specify how SSL connection should be enforced in DB connections.
+    To change this field, also set the correspoding value in require_ssl.
+    Check the value pairs [API reference](https://cloud.google.com/sql/docs/postgres/admin-api/rest/v1beta4/instances#ipconfiguration)
+
   - [**`allocated_ip_range `**](#attr-ip_configuration-allocated_ip_range ): *(Optional `string`)*<a name="attr-ip_configuration-allocated_ip_range "></a>
 
     The name of the allocated ip range for the private ip CloudSQL instance.

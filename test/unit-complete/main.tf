@@ -67,6 +67,7 @@ module "test" {
     }]
     private_network    = "projects/${local.project_id}/global/networks/default"
     require_ssl        = true
+    ssl_mode           = "TRUSTED_CLIENT_CERTIFICATE_REQUIRED"
     allocated_ip_range = "google-managed-services-default"
   }
 

@@ -83,6 +83,7 @@ resource "google_sql_database_instance" "instance" {
         ipv4_enabled                                  = try(ip_configuration.value.ipv4_enabled, null)
         private_network                               = try(ip_configuration.value.private_network, null)
         require_ssl                                   = try(ip_configuration.value.require_ssl, null)
+        ssl_mode                                      = try(ip_configuration.value.ssl_mode, null)
         allocated_ip_range                            = try(ip_configuration.value.allocated_ip_range, null)
         enable_private_path_for_google_cloud_services = try(ip_configuration.value.enable_private_path_for_google_cloud_services, null)
 
