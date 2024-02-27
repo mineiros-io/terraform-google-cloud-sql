@@ -389,6 +389,15 @@ section {
             Whether SSL connections over IP are enforced or not.
           END
         }
+
+        attribute "ssl_mode" {
+          type        = string
+          description = <<-END
+            Specify how SSL connection should be enforced in DB connections.
+            To change this field, also set the correspoding value in require_ssl.
+            Check the value pairs [API reference](https://cloud.google.com/sql/docs/postgres/admin-api/rest/v1beta4/instances#ipconfiguration)
+          END
+        }
         attribute "allocated_ip_range " {
           type        = string
           description = <<-END
